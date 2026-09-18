@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,8 @@ public class CarController : MonoBehaviour
     [SerializeField] WheelCollider wheelRL;
     [SerializeField] WheelCollider wheelRR;
 
-    public EngineBase engine;
+    public List<BumperBase> bumpers = new List<BumperBase>();
+    public List<EngineBase> engines = new List<EngineBase>();
 
     public float motorTorque = 1000f;
     public float maxSteerAngle = 30f;
@@ -17,10 +19,18 @@ public class CarController : MonoBehaviour
     private Vector2 moveInput;
     Rigidbody rb;
 
+    // public bool isDrift = false;
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
+
+    /*
+    public void OnDrift(InputAction.CallbackContext context)
+    {
+        isDrift = context.performed;
+    }*/
 
     void Start()
     {
@@ -30,6 +40,7 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Debug.Log(moveInput);
         // W/S
         float motor = moveInput.y * motorTorque;
 
@@ -41,5 +52,28 @@ public class CarController : MonoBehaviour
 
         wheelFL.steerAngle = steer;
         wheelFR.steerAngle = steer;
+
+        // 드리프트
+        // SetDrift(isDrift);
     }
+
+    /*
+    private void SetDrift(bool drift)
+    {
+        float stiffness = drift ? 0.5f : 1.0f;
+
+        SetSidewaysFriction(wheelFL, stiffness);
+        SetSidewaysFriction(wheelFR, stiffness);
+        SetSidewaysFriction(wheelRL, stiffness);
+        SetSidewaysFriction(wheelRR, stiffness);
+    }
+
+    private void SetSidewaysFriction(WheelCollider wheel, float stiffness)
+    {
+        WheelFrictionCurve friction = wheel.sidewaysFriction;
+        friction.stiffness = stiffness;
+        wheel.sidewaysFriction = friction;
+    }*/
+
+
 }

@@ -1,12 +1,7 @@
 using UnityEngine;
 
-public class RoofBase : MonoBehaviour, PartBase<GameObject>
+public class ItemData : MonoBehaviour
 {
-    public bool SkillEffect(GameObject t)
-    {
-        throw new System.NotImplementedException();
-    }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

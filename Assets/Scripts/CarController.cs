@@ -10,14 +10,13 @@ public class CarController : MonoBehaviour
     [SerializeField] WheelCollider wheelRL;
     [SerializeField] WheelCollider wheelRR;
 
-    public List<BumperBase> bumpers = new List<BumperBase>();
-    public List<EngineBase> engines = new List<EngineBase>();
+    public CarManager carManager;
 
     public float motorTorque
     {
         get
         {
-            return engines[0].Power * 1000f;
+            return carManager.EnginePower * 1000f;
         }
     }
     public float maxSteerAngle = 30f;

@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class EngineBase : MonoBehaviour, PartBase<GameObject>
+public abstract class EngineBase : MonoBehaviour, PartBase<GameObject>
 {
+    public float power;
+
     [SerializeField] private float enginePower;
 
     public float Power { get { return enginePower; } }

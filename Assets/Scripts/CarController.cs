@@ -13,7 +13,13 @@ public class CarController : MonoBehaviour
     public List<BumperBase> bumpers = new List<BumperBase>();
     public List<EngineBase> engines = new List<EngineBase>();
 
-    public float motorTorque = 1000f;
+    public float motorTorque
+    {
+        get
+        {
+            return engines[0].Power * 1000f;
+        }
+    }
     public float maxSteerAngle = 30f;
 
     private Vector2 moveInput;

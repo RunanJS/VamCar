@@ -14,6 +14,8 @@ public abstract class StorageBase : MonoBehaviour, PartBase<GameObject>
 
         hand = inventory[index];
 
+        // 버그: 인벤토리에서 핸드로 반환이 안된다?
+
         inventory[index] = ex;
     }
 

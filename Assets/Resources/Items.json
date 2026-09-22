@@ -1,0 +1,16 @@
+{
+    "items": [
+        {
+            "itemName": "∞Ì√∂",
+            "id": "scrap",
+            "maxStack": 64,
+            "nbt": [ "scrap", "material" ]
+        },
+        {
+            "itemName": "∆Û¿Ø",
+            "id": "cheep_oil",
+            "maxStack": 64,
+            "nbt": [ "oil", "cheep"]
+        }
+    ]
+}

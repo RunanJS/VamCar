@@ -2,22 +2,21 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory
 {
-    public List<ItemSlot> inventory = new List<ItemSlot>();
-    int length;
-    public int Length { get { return length; } }
+    public ItemSlot[] inventory;
+    public int Length { get { return inventory.Length; } }
+
+    public ItemSlot this[int index]
+    {
+        get { return inventory[index]; }
+        set { inventory[index] = value; }
+    }
 
     public Inventory(int slotCount, params ItemSlot[] items)
     {
-        inventory = new List<ItemSlot>();
-        length = slotCount;
-
-        for (int i = 0; i < slotCount; i++)
-        {
-            inventory.Add(new ItemSlot());
-        }
-
+        inventory = new ItemSlot[slotCount];
+        
         if(items.Length > 0)
         {
             foreach (var _item in items)
@@ -37,8 +36,6 @@ public class Inventory : MonoBehaviour
         // 아이템 수가 0개면 그냥 패스
         if (_amount <= 0) return false;
 
-        bool res = false;
-
         foreach (var _item in inventory)
         {
             // 여유공간이 있는 같은 아이템이 있을 경우
@@ -51,10 +48,17 @@ public class Inventory : MonoBehaviour
         }
 
         // 새 슬롯에 저장
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i] == null)
+            {
+                inventory[i] = new ItemSlot(id, _amount);
+                return true;
+            }
+        }
 
         // 슬롯 없으면 그냥 false
-
-        return res;
+        return false;
     }
 }
 
@@ -66,7 +70,7 @@ public class ItemSlot
 
     public ItemSlot(string _itemId, int _amount)
     {
-        //item = ItemData.GetItem(_itemId);
+        item = ItemData.inst.GetItem(_itemId);
         amount = _amount;
     }
 
@@ -92,6 +96,7 @@ public class ItemSlot
     }
 }
 
+[System.Serializable]
 public class Item
 {
     public string itemName;

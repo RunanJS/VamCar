@@ -1,13 +1,8 @@
 using UnityEngine;
 
-public abstract class BumperBase : MonoBehaviour, PartBase<Enemy>
+public abstract class BumperBase : PartBase<Enemy>
 {
     public float power;
-
-
-
-    public abstract bool SkillEffect(Enemy target);
-
 
     public void OnTriggerEnter(Collider other)
     {

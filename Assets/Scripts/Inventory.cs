@@ -62,39 +62,7 @@ public class Inventory
     }
 }
 
-public class ItemSlot
-{
-    public Item item;
-    public int amount;
-    public string id { get { return item.id; } }
 
-    public ItemSlot(string _itemId, int _amount)
-    {
-        item = ItemData.inst.GetItem(_itemId);
-        amount = _amount;
-    }
-
-    public ItemSlot(Item _item = null, int _amount = 1)
-    {
-        item = _item;
-
-        // 널이면 갯수는 0
-        amount = _item == null ? 0 : _amount;
-    }
-
-    // 더하고 남는거 반환
-    public int Add(int _amount)
-    {
-        int remain = item.maxStack - (amount + _amount);
-        if (remain > 0) amount = item.maxStack;
-        return remain;
-    }
-
-    public bool IsFull
-    {
-        get { return amount >= item.maxStack; }
-    }
-}
 
 [System.Serializable]
 public class Item

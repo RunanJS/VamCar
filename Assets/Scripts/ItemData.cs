@@ -5,10 +5,16 @@ public class ItemData : MonoBehaviour
 {
     public static ItemData inst;
     Dictionary<string, Item> items = new Dictionary<string, Item>();
+    Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
 
     public Item GetItem(string _id)
     {
         return items[_id];
+    }
+
+    public Sprite GetSprite(string _id)
+    {
+        return sprites[_id];
     }
 
     void Awake()
@@ -24,6 +30,9 @@ public class ItemData : MonoBehaviour
         foreach (var item in data.items)
         {
             items.Add(item.id, item);
+
+            //Sprite _sprite = Resources.Load<Sprite>("Sprites/"+item.id);
+            //sprites.Add(item.id, _sprite);
             Debug.Log("Set. " + item.id);
         }
     }

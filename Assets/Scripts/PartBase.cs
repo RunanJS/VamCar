@@ -1,8 +1,12 @@
 using UnityEngine;
 
-public interface PartBase<T>
+public abstract class PartBase<T> : MonoBehaviour
 {
+    public int size = 1;
 
+    [Header("상하전후좌우 2진수")]
+    [Header("상하전후좌우 2진수")]
+    public int slotable = 0b111111;
 
-    public bool SkillEffect(T t);
+    public abstract bool SkillEffect(T t);
 }

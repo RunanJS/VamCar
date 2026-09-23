@@ -12,7 +12,7 @@ public class CarController : MonoBehaviour
 
     public CarManager carManager;
 
-    public float motorTorque
+    public float MotorTorque
     {
         get
         {
@@ -41,13 +41,14 @@ public class CarController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = new Vector3(0, -0.5f, 0);
+        carManager = GetComponent<CarManager>();
     }
 
     private void FixedUpdate()
     {
         // Debug.Log(moveInput);
         // W/S
-        float motor = moveInput.y * motorTorque;
+        float motor = moveInput.y * MotorTorque;
 
         wheelRL.motorTorque = motor;
         wheelRR.motorTorque = motor;

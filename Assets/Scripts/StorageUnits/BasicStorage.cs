@@ -25,8 +25,10 @@ public class BasicStorage : StorageBase
             int index = i;
             btns[index].onClick.AddListener(() =>
             {
-                HandedItem(index);
-                Debug.Log(index);
+                //HandedItem(index);
+                inventory[index].Exchange(PlayerHand.player.Hand);
+                Debug.Log(index + "Ä­:" + inventory[index].id
+                    + ", ¼Õ:"+PlayerHand.player.Hand.id);
             });
         }
     }
@@ -36,5 +38,10 @@ public class BasicStorage : StorageBase
         base.HandedItem(index);
         btns[index].GetComponentInChildren<TextMeshProUGUI>().text =
             inventory[index].amount + "";
+    }
+
+    public override bool SkillEffect(GameObject t)
+    {
+        throw new System.NotImplementedException();
     }
 }

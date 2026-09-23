@@ -1,26 +1,21 @@
 using UnityEngine;
 
-public abstract class StorageBase : MonoBehaviour, PartBase<GameObject>
+public abstract class StorageBase : PartBase<GameObject>
 {
     protected Inventory inventory = new Inventory(1);
 
     public virtual void HandedItem(int index)
     {
-        ItemSlot hand = PlayerHand.player.Hand;
         if (inventory[index] == null
-            && hand == null) return;
+            && PlayerHand.player.Hand == null) return;
 
-        ItemSlot ex = hand;
+        ItemSlot ex = PlayerHand.player.Hand;
 
-        hand = inventory[index];
-
-        // 버그: 인벤토리에서 핸드로 반환이 안된다?
+        PlayerHand.player.Hand = inventory[index];
 
         inventory[index] = ex;
-    }
 
-    public bool SkillEffect(GameObject t)
-    {
-        throw new System.NotImplementedException();
+        Debug.Log("칸에 " + inventory[index].id);
+        Debug.Log(", 손에 " + PlayerHand.player.Hand.id);
     }
 }

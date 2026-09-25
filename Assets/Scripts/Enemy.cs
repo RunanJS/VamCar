@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Unit
 {
-    public void OnDamaged()
+    public void OnDamaged(float damage)
     {
-
+        currentHp -= damage;
     }
 }

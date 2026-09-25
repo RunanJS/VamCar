@@ -6,7 +6,12 @@ public abstract class BumperBase : PartBase<Enemy>
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<Enemy>(out Enemy e))
-        SkillEffect(e);   
+        
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent<Enemy>(out Enemy e))
+            SkillEffect(e);
     }
 }

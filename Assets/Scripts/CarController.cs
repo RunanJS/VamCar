@@ -21,6 +21,9 @@ public class CarController : MonoBehaviour
     }
     public float maxSteerAngle = 30f;
 
+    public float engineBrakeTorque = 500;
+    public bool isBrake = false;
+
     private Vector2 moveInput;
     Rigidbody rb;
 
@@ -29,6 +32,11 @@ public class CarController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnBrake(InputAction.CallbackContext context)
+    {
+        isBrake = context.performed;
     }
 
     /*
@@ -46,9 +54,20 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Debug.Log(moveInput);
+        // 브레이크시 입력 씹음
+        float input = isBrake ? 0 : moveInput.y;
+
         // W/S
-        float motor = moveInput.y * MotorTorque;
+        float motor = input * MotorTorque;
+
+        // 엑셀을 놓았을 때 엔진 브레이크
+        if (Mathf.Abs(input) < 0.01f)
+        {
+            float speed = Vector3.Dot(rb.linearVelocity, transform.forward);
+
+            float brakePower = isBrake ? 3 : 1;
+            motor = -Mathf.Sign(speed) * engineBrakeTorque * brakePower;
+        }
 
         wheelRL.motorTorque = motor;
         wheelRR.motorTorque = motor;
@@ -60,16 +79,16 @@ public class CarController : MonoBehaviour
         wheelFR.steerAngle = steer;
 
         // 드리프트
-        // SetDrift(isDrift);
+        SetDrift(isBrake);
     }
 
-    /*
+    
     private void SetDrift(bool drift)
     {
-        float stiffness = drift ? 0.5f : 1.0f;
+        float stiffness = drift ? 0.3f : 1.0f;
 
-        SetSidewaysFriction(wheelFL, stiffness);
-        SetSidewaysFriction(wheelFR, stiffness);
+        //SetSidewaysFriction(wheelFL, stiffness);
+        //SetSidewaysFriction(wheelFR, stiffness);
         SetSidewaysFriction(wheelRL, stiffness);
         SetSidewaysFriction(wheelRR, stiffness);
     }
@@ -79,7 +98,7 @@ public class CarController : MonoBehaviour
         WheelFrictionCurve friction = wheel.sidewaysFriction;
         friction.stiffness = stiffness;
         wheel.sidewaysFriction = friction;
-    }*/
+    }
 
 
 }

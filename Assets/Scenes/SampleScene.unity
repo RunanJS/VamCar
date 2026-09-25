@@ -336,13 +336,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 0.5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 0.8
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -544,13 +544,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 0.5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 0.8
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d406f9c2f53e4854f8f87a4c1bbd5cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 16
+  partSize: 1
   slotable: 63
   layout: {fileID: 2042693241}
   slotPrefab: {fileID: 4889739930210724914, guid: 12f714b2a21b6074988765683f97cc4b, type: 3}
@@ -1274,13 +1274,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 0.9
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 0.8
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1422,6 +1422,7 @@ GameObject:
   - component: {fileID: 1090280404}
   - component: {fileID: 1090280406}
   - component: {fileID: 1090280405}
+  - component: {fileID: 1090280407}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -1498,7 +1499,9 @@ MonoBehaviour:
   wheelRL: {fileID: 334785274}
   wheelRR: {fileID: 327200393}
   carManager: {fileID: 0}
-  maxSteerAngle: 30
+  maxSteerAngle: 50
+  engineBrakeTorque: 500
+  isBrake: 0
 --- !u!114 &1090280405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,7 +1547,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1090280404}
         m_TargetAssemblyTypeName: CarController, Assembly-CSharp
-        m_MethodName: OnDrift
+        m_MethodName: OnBrake
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1568,7 +1571,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090280401}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98aa9e82989d95f43a50bcf6dc0b0f64, type: 3}
   m_Name: 
@@ -1580,6 +1583,21 @@ MonoBehaviour:
   front: []
   back: []
   inside: []
+--- !u!114 &1090280407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090280401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7dbd62bf6db9d64fb282f4dee1e5e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partSize: 1
+  slotable: 63
+  power: 1
 --- !u!1 &1255256516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,6 +2183,7 @@ GameObject:
   - component: {fileID: 1752455702}
   - component: {fileID: 1752455701}
   - component: {fileID: 1752455700}
+  - component: {fileID: 1752455704}
   m_Layer: 0
   m_Name: SandBag
   m_TagString: Untagged
@@ -2257,12 +2276,26 @@ Transform:
   m_GameObject: {fileID: 1752455699}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.084747344, y: 1.94, z: 5.05}
+  m_LocalPosition: {x: 0.084747344, y: 1.09, z: 5.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1752455704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752455699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d812b16ec9257409d4555600ef5291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHp: 0
+  maxHp: 5
 --- !u!1 &1878619521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2612,13 +2645,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 0.9
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 0.8
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

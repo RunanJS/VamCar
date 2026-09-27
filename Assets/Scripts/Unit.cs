@@ -9,4 +9,9 @@ public class Unit : MonoBehaviour
     {
         currentHp = maxHp;
     }
+
+    public void OnDamaged(float damage)
+    {
+        currentHp -= damage;
+    }
 }

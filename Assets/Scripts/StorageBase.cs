@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class StorageBase : PartBase<GameObject>
+public abstract class StorageBase : PartBase
 {
     protected Inventory inventory = new Inventory(1);
 

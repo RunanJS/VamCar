@@ -43,6 +43,11 @@ public class ItemSlot
         return remain;
     }
 
+    public void PickUp(out ItemSlot slot)
+    {
+        slot = this;
+    }
+
     public void Exchange(ItemSlot slot)
     {
         ItemSlot ex = this;

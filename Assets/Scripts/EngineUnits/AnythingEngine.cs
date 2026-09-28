@@ -1,20 +1,34 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AnythingEngine : EngineBase
 {
-    public override bool SkillEffect(GameObject t)
+    public Inventory storage = new Inventory(5);
+
+    protected override float Require
     {
-        throw new System.NotImplementedException();
+        get
+        {
+            foreach (var item in storage.inventory)
+            {
+                if(item != null)
+                {
+
+                }
+            }
+
+
+
+            if (storage[0] != null)
+            {
+                storage[0].amount -= 1;
+                return generateAmount;
+            }
+            else return 0;
+        }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    public override void SkillEffect(SkillContext context)
     {
         
     }

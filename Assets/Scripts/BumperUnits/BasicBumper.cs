@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class BasicBumper : BumperBase
 {
-    public override bool SkillEffect(Enemy target)
+    public override void SkillEffect(SkillContext context)
     {
-        Shock(target);
-        return true;
+        Shock(context.target);
     }
 }

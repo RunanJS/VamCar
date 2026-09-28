@@ -40,8 +40,8 @@ public class BasicStorage : StorageBase
             inventory[index].amount + "";
     }
 
-    public override bool SkillEffect(GameObject t)
+    public override void SkillEffect(SkillContext context)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

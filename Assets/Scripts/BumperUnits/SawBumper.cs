@@ -1,9 +1,10 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-public class SawBumper : MonoBehaviour
+public class SawBumper : PartBase
 {
     [SerializeField] GameObject[] obj;
-    [SerializeField] float power = 1;
+    public float power;
 
     void Update()
     {
@@ -14,11 +15,15 @@ public class SawBumper : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
-
         Debug.Log(other.name);
         if (other.TryGetComponent<Unit>(out Unit target))
         {
-            target.OnDamaged(power * Time.deltaTime);
+            SkillEffect(new SkillContext { target = target });
         }
+    }
+
+    public override void SkillEffect(SkillContext context)
+    {
+        context.target.OnDamaged(power * Time.deltaTime);
     }
 }

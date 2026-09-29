@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public class Item
 {
     public string itemName;
     public string id;
-    int amount;
     public int maxStack = 64;
     public List<string> nbt = new List<string>();
 
@@ -32,6 +30,7 @@ public class Item
         this.nbt = new List<string>(_item.nbt);
     }
 
+    /*
     // 더하고 남는거 반환
     public Item Add(int _amount)
     {
@@ -49,6 +48,7 @@ public class Item
         res.amount = remain;
         return res;
     }
+    */
 
     // nbt 체크
     public bool Is(params string[] inputNbts)

@@ -9,7 +9,8 @@ public class ItemData : MonoBehaviour
 
     public Item GetItem(string _id)
     {
-        return items[_id];
+        Item res = items[_id];
+        return res;
     }
 
     public Sprite GetSprite(string _id)

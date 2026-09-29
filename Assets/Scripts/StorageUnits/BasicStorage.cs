@@ -26,7 +26,7 @@ public class BasicStorage : StorageBase
             btns[index].onClick.AddListener(() =>
             {
                 //HandedItem(index);
-                inventory[index].Exchange(PlayerHand.player.Hand);
+                inventory.PickUp(index, ref PlayerHand.player.Hand);
                 Debug.Log(index + "Ä­:" + inventory[index].id
                     + ", ¼Õ:"+PlayerHand.player.Hand.id);
             });

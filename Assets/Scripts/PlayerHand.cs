@@ -8,7 +8,7 @@ public class PlayerHand : MonoBehaviour
 
     public TextMeshProUGUI text;
 
-    ItemSlot hand;
+    public ItemSlot hand;
     public ItemSlot Hand
     {
         get

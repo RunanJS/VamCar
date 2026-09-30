@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class Inventory : MonoBehaviour
+public class Inventory : IEnumerable<ItemSlot>
 {
     [SerializeField] private ItemSlot[] slots;
     public int Length { get { return slots.Length; } }
@@ -18,6 +20,10 @@ public class Inventory : MonoBehaviour
     public Inventory(int slotCount, params ItemSlot[] items)
     {
         slots = new ItemSlot[slotCount];
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = new ItemSlot();
+        }
         
         if(items.Length > 0)
         {
@@ -82,6 +88,22 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        return false;
+    }
+
+    public bool HasItem(int amount)
+    {
+        int count = 0;
+
+        foreach (ItemSlot slot in slots)
+        {
+            if (slot == null || slot.IsEmpty) continue;
+
+            count += slot.amount;
+
+            if (count >= amount)
+                return true;
+        }
         return false;
     }
 
@@ -188,6 +210,30 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    // 최상단 템있는 슬롯 아무거나 하나
+    public bool RemoveAnyItem(int amount = 1)
+    {
+        if(HasItem(amount)) return false;
+
+        foreach (var slot in slots)
+        {
+            if (slot == null || slot.IsEmpty) continue;
+
+            if(slot.amount < amount)
+            {
+                amount -= slot.amount;
+                slot.Clear();
+            }
+            else
+            {
+                slot.amount -= amount;
+                if (slot.amount <= 0) slot.Clear();
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 두 슬롯 교환
     public void Swap(int indexA, int indexB)
     {
@@ -204,40 +250,59 @@ public class Inventory : MonoBehaviour
     // 교체
     public void PickUp(int index, ref ItemSlot slot)
     {
-        if (index < 0 || index >= slots.Length) return;
-        if(slot == null && slots[index] == null) return;
-        if (slot.IsEmpty && slots[index].IsEmpty) return;
+        if (index < 0 || index >= slots.Length)
+            return;
 
-        // 빈손일때
+        ItemSlot target = slots[index];
+
+        // 둘 다 비어있으면 아무것도 안 함
+        if ((slot == null || slot.IsEmpty) &&
+            (target == null || target.IsEmpty))
+            return;
+
+        // 손이 비어있으면 그대로 가져오기
         if (slot == null || slot.IsEmpty)
-            slot = new ItemSlot();
-        if (slots == null || slots[index].IsEmpty) 
-            slots[index] = new ItemSlot();
-
-        // 아이템이 같으면
-        if (slot.item.id.Equals(slots[index].item.id))
         {
-            // 합친다
-            int add = slots[index].amount + slot.amount;
+            slot = target;
+            slots[index] = new ItemSlot();
+            Debug.Log("가져오기" + slot.id);
+            return;
+        }
 
-            if(add > slots[index].item.maxStack)
+        // 인벤토리 슬롯이 비어있으면 그대로 넣기
+        if (target == null || target.IsEmpty)
+        {
+            slots[index] = slot;
+            slot = new ItemSlot();
+            Debug.Log("넣기" + slots[index].id);
+            return;
+        }
+
+        // 둘 다 아이템이 있는 상태
+        if (slot.item.id == target.item.id)
+        {
+            // 같은 아이템이면 합치기
+            int add = target.amount + slot.amount;
+            int maxStack = target.item.maxStack;
+
+            if (add <= maxStack)
             {
-                slots[index].amount = slots[index].item.maxStack;
-                slot.amount = add - slots[index].item.maxStack;
+                target.amount = add;
+                slot.Clear();
             }
             else
             {
-                slots[index].amount = add;
-                slot.Clear();
+                target.amount = maxStack;
+                slot.amount = add - maxStack;
             }
-        } 
-        else // 아이템이 다르면
-        {
-            // 바꾼다
-            ItemSlot ex = new ItemSlot(slot);
-            slot = new ItemSlot(slots[index]);
-            slots[index] = ex;
+            Debug.Log("합치기" + target.id + " " + target.amount + "개");
+            return;
         }
+
+        // 서로 다른 아이템이면 교체
+        slots[index] = slot;
+        slot = target;
+        Debug.Log("바꾸기" + slot.id + ", " + slots[index]);
     }
 
     public void Move(int from, int to)
@@ -331,5 +396,18 @@ public class Inventory : MonoBehaviour
         }
 
         return -1;
+    }
+
+
+
+    // 배열취급
+    public IEnumerator<ItemSlot> GetEnumerator()
+    {
+        return ((IEnumerable<ItemSlot>)slots).GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

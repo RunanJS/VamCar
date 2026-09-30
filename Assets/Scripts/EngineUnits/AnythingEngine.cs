@@ -5,23 +5,15 @@ public class AnythingEngine : EngineBase
 {
     public Inventory storage = new Inventory(5);
 
-    protected override float Require
+    protected override float GetGenerate
     {
         get
         {
-            foreach (var item in storage.inventory)
+            // 저장소가 비어있지 않으면
+            if (storage.HasItem(1))
             {
-                if(item != null)
-                {
-
-                }
-            }
-
-
-
-            if (storage[0] != null)
-            {
-                storage[0].amount -= 1;
+                // 아무템 하나 없애고 발전량 전송
+                storage.RemoveAnyItem(1);
                 return generateAmount;
             }
             else return 0;

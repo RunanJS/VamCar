@@ -16,7 +16,7 @@ public abstract class EngineBase : PartBase
 
     float timer = 0;
 
-    protected abstract float Require { get; }
+    protected abstract float GetGenerate { get; }
 
     public float Power
     {
@@ -51,6 +51,6 @@ public abstract class EngineBase : PartBase
     {
         if (fuel >= maxFuel) return;
 
-        fuel += Require;
+        fuel += GetGenerate;
     }
 }

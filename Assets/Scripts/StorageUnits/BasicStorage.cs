@@ -26,9 +26,7 @@ public class BasicStorage : StorageBase
             btns[index].onClick.AddListener(() =>
             {
                 //HandedItem(index);
-                inventory.PickUp(index, ref PlayerHand.player.Hand);
-                Debug.Log(index + "Ä­:" + inventory[index].id
-                    + ", ¼Õ:"+PlayerHand.player.Hand.id);
+                inventory.PickUp(index, ref PlayerHand.player.hand);
             });
         }
     }

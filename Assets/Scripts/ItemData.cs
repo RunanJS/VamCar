@@ -7,15 +7,15 @@ public class ItemData : MonoBehaviour
     Dictionary<string, Item> items = new Dictionary<string, Item>();
     Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
 
-    public Item GetItem(string _id)
+    public static Item GetItem(string _id)
     {
-        Item res = items[_id];
+        Item res = inst.items[_id];
         return res;
     }
 
-    public Sprite GetSprite(string _id)
+    public static Sprite GetSprite(string _id)
     {
-        return sprites[_id];
+        return inst.sprites[_id];
     }
 
     void Awake()
@@ -32,8 +32,8 @@ public class ItemData : MonoBehaviour
         {
             items.Add(item.id, item);
 
-            //Sprite _sprite = Resources.Load<Sprite>("Sprites/"+item.id);
-            //sprites.Add(item.id, _sprite);
+            Sprite _sprite = Resources.Load<Sprite>("Sprites/"+item.id);
+            sprites.Add(item.id, _sprite);
             Debug.Log("Set. " + item.id);
         }
     }

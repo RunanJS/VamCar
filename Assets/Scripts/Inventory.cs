@@ -149,7 +149,7 @@ public class Inventory : IEnumerable<ItemSlot>
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                if (slots[i] == null)
+                if (slots[i] == null || slots[i].IsEmpty)
                 {
                     slots[i] = new ItemSlot(id, 0);
                     slot = slots[i];
@@ -248,17 +248,18 @@ public class Inventory : IEnumerable<ItemSlot>
     }
 
     // 교체
-    public void PickUp(int index, ref ItemSlot slot)
+    public ItemSlot PickUp(int index, ItemSlot _slot)
     {
+        ItemSlot slot = _slot;
         if (index < 0 || index >= slots.Length)
-            return;
+            return slot;
 
         ItemSlot target = slots[index];
 
         // 둘 다 비어있으면 아무것도 안 함
         if ((slot == null || slot.IsEmpty) &&
             (target == null || target.IsEmpty))
-            return;
+            return slot;
 
         // 손이 비어있으면 그대로 가져오기
         if (slot == null || slot.IsEmpty)
@@ -266,7 +267,7 @@ public class Inventory : IEnumerable<ItemSlot>
             slot = target;
             slots[index] = new ItemSlot();
             Debug.Log("가져오기" + slot.id);
-            return;
+            return slot;
         }
 
         // 인벤토리 슬롯이 비어있으면 그대로 넣기
@@ -275,7 +276,7 @@ public class Inventory : IEnumerable<ItemSlot>
             slots[index] = slot;
             slot = new ItemSlot();
             Debug.Log("넣기" + slots[index].id);
-            return;
+            return slot;
         }
 
         // 둘 다 아이템이 있는 상태
@@ -296,13 +297,14 @@ public class Inventory : IEnumerable<ItemSlot>
                 slot.amount = add - maxStack;
             }
             Debug.Log("합치기" + target.id + " " + target.amount + "개");
-            return;
+            return slot;
         }
 
         // 서로 다른 아이템이면 교체
         slots[index] = slot;
         slot = target;
         Debug.Log("바꾸기" + slot.id + ", " + slots[index]);
+        return slot;
     }
 
     public void Move(int from, int to)

@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class StorageBase : PartBase
 {
     protected Inventory inventory = new Inventory(1);
-
+    /*
     public virtual void HandedItem(int index)
     {
         if (inventory[index] == null
@@ -17,5 +17,5 @@ public abstract class StorageBase : PartBase
 
         Debug.Log("Ä­¿¡ " + inventory[index].id);
         Debug.Log(", ¼Õ¿¡ " + PlayerHand.player.Hand.id);
-    }
+    }*/
 }

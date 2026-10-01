@@ -8,6 +8,7 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TMP_Text amountText;
     [SerializeField] private Button button;
+    [SerializeField] private Color nullColor = new Color(1f, 1f, 1f, 0.2f);
 
     private ItemSlot slot;
 
@@ -17,13 +18,17 @@ public class ItemSlotUI : MonoBehaviour
 
         if (slot == null || slot.IsEmpty)
         {
-            icon.enabled = false;
+            icon.sprite = null;
+            icon.color = nullColor;
             amountText.text = "";
             return;
         }
 
-        icon.enabled = true;
-        icon.sprite = ItemData.inst.GetSprite(slot.item.id);
+        icon.sprite = ItemData.GetSprite(slot.item.id);
+
+        Color color = icon.color;
+        color.a = 1f;
+        icon.color = color;
 
         amountText.text = slot.amount > 1
             ? slot.amount.ToString()

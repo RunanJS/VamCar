@@ -26,17 +26,17 @@ public class BasicStorage : StorageBase
             btns[index].onClick.AddListener(() =>
             {
                 //HandedItem(index);
-                inventory.PickUp(index, ref PlayerHand.player.hand);
+                //inventory.PickUp(index, ref PlayerHand.player.hand);
             });
         }
     }
-
+    /*
     public override void HandedItem(int index)
     {
         base.HandedItem(index);
         btns[index].GetComponentInChildren<TextMeshProUGUI>().text =
             inventory[index].amount + "";
-    }
+    }*/
 
     public override void SkillEffect(SkillContext context)
     {

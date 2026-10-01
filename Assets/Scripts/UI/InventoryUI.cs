@@ -5,8 +5,24 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Inventory inventory;
     [SerializeField] private ItemSlotUI[] slots;
 
+    [Header("¿ŒΩ∫∆Â≈Õ")]
+    [SerializeField] private GameObject slotPrefab;
+    [SerializeField] private GameObject layout;
+    public int size = 32;
+
     private void Start()
     {
+        inventory = new Inventory(size);
+        inventory.AddItem("scrap");
+        inventory.AddItem("saw_bumper");
+        slots = new ItemSlotUI[size];
+        // ¿Œ∫•ƒ≠ º“»Ø
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            slots[i] = Instantiate(slotPrefab, layout.transform
+                ).GetComponent<ItemSlotUI>();
+        }
+
         for (int i = 0; i < slots.Length; i++)
         {
             int index = i;
@@ -16,7 +32,7 @@ public class InventoryUI : MonoBehaviour
                 OnSlotClick(index);
             });
         }
-
+        Debug.Log(inventory.GetSlot(0).id);
         Refresh();
     }
 
@@ -31,7 +47,7 @@ public class InventoryUI : MonoBehaviour
 
     public void OnSlotClick(int index)
     {
-        inventory.PickUp(index, ref PlayerHand.player.hand);
+        PlayerHand.Hand = inventory.PickUp(index, PlayerHand.Hand);
         Refresh();
     }
 }

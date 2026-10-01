@@ -1,16 +1,22 @@
 {
     "items": [
         {
-            "itemName": "��ö",
+            "itemName": "스크랩",
             "id": "scrap",
             "maxStack": 64,
             "nbt": [ "scrap", "material" ]
         },
         {
-            "itemName": "����",
+            "itemName": "저품질기름",
             "id": "cheep_oil",
             "maxStack": 64,
-            "nbt": [ "oil", "cheep"]
+            "nbt": [ "oil", "cheep" ]
+        },
+        {
+            "itemName": "갈갈이",
+            "id": "saw_bumper",
+            "maxStack": 1,
+            "nbt": [ "bumper", "part" ]
         }
     ]
 }

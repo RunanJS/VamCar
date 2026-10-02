@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnythingEngine : EngineBase
+public class AnythingEngine : EngineBase, IConnecter
 {
     public Inventory storage = new Inventory(5);
+
+    public Inventory ConnectedInventory => storage;
 
     protected override float GetGenerate
     {

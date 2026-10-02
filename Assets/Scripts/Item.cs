@@ -51,7 +51,7 @@ public class Item
     */
 
     // nbt üũ
-    public bool Is(params string[] inputNbts)
+    public bool HasNbt(params string[] inputNbts)
     {
         bool res = false;
         int currectCount = 0;

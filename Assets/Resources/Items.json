@@ -17,6 +17,12 @@
             "id": "saw_bumper",
             "maxStack": 1,
             "nbt": [ "bumper", "part" ]
+        },
+	{
+            "itemName": "아무거나엔진",
+            "id": "anything_engine",
+            "maxStack": 1,
+            "nbt": [ "engine", "part" ]
         }
     ]
 }

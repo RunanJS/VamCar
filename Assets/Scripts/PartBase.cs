@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class PartBase : MonoBehaviour
 {
-    public string id;
+    //public string id;
 
     public abstract void SkillEffect(SkillContext context);
 }

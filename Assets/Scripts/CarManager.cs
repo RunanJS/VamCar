@@ -33,11 +33,8 @@ public class CarManager : InventoryUI
         }
 
         // ÀåÂø
-        slot[index] = Instantiate(ItemData.GetPrefab(partId)
+        slot[index] = Instantiate(ItemData.GetPrefab(partId), slotPoint[index]
             ).GetComponent<PartBase>();
-        slot[index].gameObject.transform.position = slotPoint[index].position;
-        slot[index].gameObject.transform.rotation = slotPoint[index].rotation;
-        Debug.Log(index + "½½·Ô ÀåÂø");
     }
 
     public float EnginePower

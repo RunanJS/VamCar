@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] protected Inventory inventory;
+    [SerializeField] public Inventory inventory;
     [SerializeField] private List<ItemSlotUI> slots = new List<ItemSlotUI>();
 
     [Header("인스펙터")]
@@ -15,17 +14,17 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         // 미리 슬롯 설정 안해놓으면
-        if (slots == null)
+        if (slots.Count <= 0)
         {
             // 사이즈 기준으로 슬롯 생성
             inventory = new Inventory(size);
 
-            slots = new List<ItemSlotUI>(size);
+            slots = new List<ItemSlotUI>();
             // 인벤칸 소환
-            for (int i = 0; i < inventory.Length; i++)
+            for (int i = 0; i < size; i++)
             {
-                slots[i] = Instantiate(slotPrefab, layout.transform
-                    ).GetComponent<ItemSlotUI>();
+                slots.Add(Instantiate(slotPrefab, layout.transform
+                    ).GetComponent<ItemSlotUI>());
             }
         }
         else
@@ -51,7 +50,7 @@ public class InventoryUI : MonoBehaviour
     // 새로고침
     public void Refresh()
     {
-        for (int i = 0; i < slots.Count; i++)
+        for (int i = 0; i < size; i++)
         {
             slots[i].SetSlot(inventory[i]);
         }
@@ -83,6 +82,7 @@ public class InventoryUI : MonoBehaviour
         {
             slots[i].gameObject.SetActive(i < count);
         }
+        size = count;
 
         Refresh();
     }

@@ -15,6 +15,7 @@ public class AnythingEngine : EngineBase, IConnecter
             if (storage.HasItem(1))
             {
                 // 아무템 하나 없애고 발전량 전송
+                Debug.Log("발전");
                 storage.RemoveAnyItem(1);
                 return generateAmount;
             }

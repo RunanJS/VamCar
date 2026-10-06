@@ -1,10 +1,9 @@
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class SawBumper : PartBase
+public class SawBumper : WeaponBase
 {
     [SerializeField] GameObject[] obj;
-    public float power;
 
     void Update()
     {

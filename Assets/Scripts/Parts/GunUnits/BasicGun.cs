@@ -3,15 +3,17 @@ using UnityEngine;
 public class BasicGun : WeaponBase, IUpdated
 {
     private float timer;
+    [SerializeField] private float bulletSpeed = 7;
     [SerializeField] private float rapidSpeed = 3;
     [SerializeField] private float range = 25;
     [SerializeField] private LayerMask targetMask;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform firePos;
 
     public void OnUpdate()
     {
-        timer -= Time.deltaTime;
-        if(timer < rapidSpeed)
+        timer += Time.deltaTime;
+        if(timer > rapidSpeed)
         {
             SkillEffect(new SkillContext
             {
@@ -19,14 +21,16 @@ public class BasicGun : WeaponBase, IUpdated
                     EnemyManager.Instance.GetNearestEnemy(
                         transform.position)
             });
-            timer = rapidSpeed;
+            timer = 0;
         }
     }
 
     public override void SkillEffect(SkillContext context)
     {
-        Destroy(Instantiate(bullet, transform.position,
+        Instantiate(bullet, firePos.position,
             Quaternion.LookRotation(transform.position,
-            context.target.transform.position)), 5);
+            context.target.transform.position))
+            .GetComponent<Bullet>().SetBullet(
+            bulletSpeed, power, context.target.transform);
     }
 }

@@ -1,11 +1,11 @@
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class SawBumper : WeaponBase
+public class SawBumper : WeaponBase, IUpdated
 {
     [SerializeField] GameObject[] obj;
 
-    void Update()
+    public void OnUpdate()
     {
         float speed = 500 * Time.deltaTime;
         obj[0].transform.Rotate(0, speed, 0);
@@ -25,4 +25,5 @@ public class SawBumper : WeaponBase
     {
         context.target.OnDamaged(power * Time.deltaTime);
     }
+
 }

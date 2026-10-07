@@ -32,7 +32,6 @@ public class InventoryUI : MonoBehaviour
             // 아니면 슬롯 기준으로 inventory 사이즈 조정
             size = slots.Count;
             inventory = new Inventory(size);
-            inventory.AddItem("saw_bumper");
         }
 
         for (int i = 0; i < slots.Count; i++)

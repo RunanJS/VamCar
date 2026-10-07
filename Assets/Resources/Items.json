@@ -18,11 +18,17 @@
             "maxStack": 1,
             "nbt": [ "bumper", "part" ]
         },
-	{
+        {
             "itemName": "아무거나엔진",
             "id": "anything_engine",
             "maxStack": 1,
             "nbt": [ "engine", "part" ]
+        },
+        {
+            "itemName": "빵빵이",
+            "id": "gun_unit",
+            "maxStack": 1,
+            "nbt": [ "shoot", "part" ]
         }
     ]
 }

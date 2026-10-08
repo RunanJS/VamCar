@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Drift",
+                    "name": "Brake",
                     "type": "Button",
                     "id": "51ac06b6-926b-45b7-924a-3a35cee84e61",
                     "expectedControlType": "",
@@ -97,7 +97,7 @@
                     "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
-                    "action": "Drift",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

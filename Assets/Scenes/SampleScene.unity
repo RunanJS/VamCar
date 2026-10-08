@@ -1840,6 +1840,8 @@ GameObject:
   m_Component:
   - component: {fileID: 809209643}
   - component: {fileID: 809209642}
+  - component: {fileID: 809209644}
+  - component: {fileID: 809209645}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -1867,13 +1869,58 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809209641}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24276944, y: 0.17020157, z: 0.09739949}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -348.78604, y: -250.95389, z: -1.5694699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1902545551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &809209644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809209641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e40c7834921bda14fb07c87fcb4ebf4c, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Car
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &809209645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809209641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88b339c65f4b1a45ac0a98488a00bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 0}
+  canvas: {fileID: 362609519}
+  btns: []
 --- !u!1 &824142795
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,7 +2396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1090280402
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2415,7 +2462,6 @@ MonoBehaviour:
   carManager: {fileID: 0}
   maxSteerAngle: 50
   engineBrakeTorque: 500
-  isBrake: 0
 --- !u!114 &1090280405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2423,7 +2469,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090280401}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -3999,6 +4045,7 @@ Transform:
   - {fileID: 377616830}
   - {fileID: 17569187}
   - {fileID: 1028907733}
+  - {fileID: 809209643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1956643716 stripped
@@ -4665,4 +4712,3 @@ SceneRoots:
   - {fileID: 362609520}
   - {fileID: 1902545551}
   - {fileID: 1752455703}
-  - {fileID: 809209643}

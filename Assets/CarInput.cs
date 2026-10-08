@@ -102,7 +102,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Drift"",
+                    ""name"": ""Brake"",
                     ""type"": ""Button"",
                     ""id"": ""51ac06b6-926b-45b7-924a-3a35cee84e61"",
                     ""expectedControlType"": """",
@@ -183,7 +183,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Drift"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -206,7 +206,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
         // Car
         m_Car = asset.FindActionMap("Car", throwIfNotFound: true);
         m_Car_Move = m_Car.FindAction("Move", throwIfNotFound: true);
-        m_Car_Drift = m_Car.FindAction("Drift", throwIfNotFound: true);
+        m_Car_Brake = m_Car.FindAction("Brake", throwIfNotFound: true);
         m_Car_Inventory = m_Car.FindAction("Inventory", throwIfNotFound: true);
     }
 
@@ -289,7 +289,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Car;
     private List<ICarActions> m_CarActionsCallbackInterfaces = new List<ICarActions>();
     private readonly InputAction m_Car_Move;
-    private readonly InputAction m_Car_Drift;
+    private readonly InputAction m_Car_Brake;
     private readonly InputAction m_Car_Inventory;
     /// <summary>
     /// Provides access to input actions defined in input action map "Car".
@@ -307,9 +307,9 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Car_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Car/Drift".
+        /// Provides access to the underlying input action "Car/Brake".
         /// </summary>
-        public InputAction @Drift => m_Wrapper.m_Car_Drift;
+        public InputAction @Brake => m_Wrapper.m_Car_Brake;
         /// <summary>
         /// Provides access to the underlying input action "Car/Inventory".
         /// </summary>
@@ -343,9 +343,9 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Drift.started += instance.OnDrift;
-            @Drift.performed += instance.OnDrift;
-            @Drift.canceled += instance.OnDrift;
+            @Brake.started += instance.OnBrake;
+            @Brake.performed += instance.OnBrake;
+            @Brake.canceled += instance.OnBrake;
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
@@ -363,9 +363,9 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Drift.started -= instance.OnDrift;
-            @Drift.performed -= instance.OnDrift;
-            @Drift.canceled -= instance.OnDrift;
+            @Brake.started -= instance.OnBrake;
+            @Brake.performed -= instance.OnBrake;
+            @Brake.canceled -= instance.OnBrake;
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
@@ -417,12 +417,12 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Drift" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Brake" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDrift(InputAction.CallbackContext context);
+        void OnBrake(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Inventory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

@@ -22,28 +22,11 @@ public class CarController : MonoBehaviour
     public float maxSteerAngle = 30f;
 
     public float engineBrakeTorque = 500;
-    public bool isBrake = false;
+    public bool IsBrake => InputManager.Brake;
 
-    private Vector2 moveInput;
+    private Vector2 MoveInput => InputManager.Move;
     Rigidbody rb;
 
-    // public bool isDrift = false;
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        moveInput = context.ReadValue<Vector2>();
-    }
-
-    public void OnBrake(InputAction.CallbackContext context)
-    {
-        isBrake = context.performed;
-    }
-
-    /*
-    public void OnDrift(InputAction.CallbackContext context)
-    {
-        isDrift = context.performed;
-    }*/
 
     void Start()
     {
@@ -55,7 +38,7 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         // 브레이크시 입력 씹음
-        float input = isBrake ? 0 : moveInput.y;
+        float input = IsBrake ? 0 : MoveInput.y;
 
         // W/S
         float motor = input * MotorTorque;
@@ -65,7 +48,7 @@ public class CarController : MonoBehaviour
         {
             float speed = Vector3.Dot(rb.linearVelocity, transform.forward);
 
-            float brakePower = isBrake ? 3 : 1;
+            float brakePower = IsBrake ? 3 : 1;
             motor = -Mathf.Sign(speed) * engineBrakeTorque * brakePower;
         }
 
@@ -73,13 +56,13 @@ public class CarController : MonoBehaviour
         wheelRR.motorTorque = motor;
 
         // A/D
-        float steer = moveInput.x * maxSteerAngle;
+        float steer = MoveInput.x * maxSteerAngle;
 
         wheelFL.steerAngle = steer;
         wheelFR.steerAngle = steer;
 
         // 드리프트
-        SetDrift(isBrake);
+        SetDrift(IsBrake);
     }
 
     

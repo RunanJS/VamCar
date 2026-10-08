@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
         speed = _speed;
         power = _power;
         target = _target;
-        transform.LookAt(target);
+        //transform.LookAt(target);
         Destroy(gameObject, 5);
     }
 

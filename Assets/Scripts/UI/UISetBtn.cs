@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class UISetBtn : MonoBehaviour
 {
     Button btn;
-    [SerializeField] EngineUI ui;
+    [SerializeField] InventoryUI ui;
     [SerializeField] GameObject target;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -12,7 +12,7 @@ public class UISetBtn : MonoBehaviour
         btn = GetComponent<Button>();
         btn.onClick.AddListener(() =>
         {
-            ui.SetInventory(target.GetComponent<IConnecter>());
+            //ui.SetInventory(target.GetComponent<IConnecter>());
         });
     }
 }

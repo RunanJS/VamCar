@@ -27,9 +27,7 @@ public class BasicGun : WeaponBase, IUpdated
 
     public override void SkillEffect(SkillContext context)
     {
-        Instantiate(bullet, firePos.position,
-            Quaternion.LookRotation(transform.position,
-            context.target.transform.position))
+        Instantiate(bullet, firePos.position, transform.rotation)
             .GetComponent<Bullet>().SetBullet(
             bulletSpeed, power, context.target.transform);
     }

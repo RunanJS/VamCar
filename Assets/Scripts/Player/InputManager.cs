@@ -12,7 +12,6 @@ public class InputManager : MonoBehaviour
     void OnMove(InputValue value)
     {
         Move = value.Get<Vector2>();
-        Debug.Log(value.ToString());
     }
     void OnBrake(InputValue value)
     {

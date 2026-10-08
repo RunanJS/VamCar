@@ -29,9 +29,15 @@ public class CarManager : InventoryUI
         if(slot[index] != null && partId == "")
         {
             // updated면 제거
-            if (slot[index] is IUpdated removed)
+            if (slot[index] is IUpdated updateRemoved)
             {
-                updatedParts.Remove(removed);
+                updatedParts.Remove(updateRemoved);
+            }
+
+            // 인벤 쓰는 애면 등록 해제
+            if (slot[index] is IConnecter connectRemoved)
+            {
+                UIManager.UnRegister(connectRemoved.ConnectedInventory);
             }
 
             Destroy(slot[index].gameObject);
@@ -49,6 +55,12 @@ public class CarManager : InventoryUI
         if (slot[index] is IUpdated updated)
         {
             updatedParts.Add(updated);
+        }
+
+        // 인벤 쓰는 애면 등록
+        if (slot[index] is IConnecter connecter)
+        {
+            UIManager.Register(connecter.ConnectedInventory);
         }
     }
 

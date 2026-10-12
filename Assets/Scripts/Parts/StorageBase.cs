@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class StorageBase : PartBase
 {
-    protected Inventory inventory = new Inventory(1);
+    public int size = 16;
     /*
     public virtual void HandedItem(int index)
     {

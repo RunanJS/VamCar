@@ -34,6 +34,12 @@ public class CarManager : InventoryUI
                 updatedParts.Remove(updateRemoved);
             }
 
+            // 창고 등록
+            if (slot[index] is StorageBase removeStorage)
+            {
+                UIManager.SetStorage(-removeStorage.size);
+            }
+
             // 인벤 쓰는 애면 등록 해제
             if (slot[index] is IConnecter connectRemoved)
             {
@@ -55,6 +61,12 @@ public class CarManager : InventoryUI
         if (slot[index] is IUpdated updated)
         {
             updatedParts.Add(updated);
+        }
+
+        // 창고 등록
+        if (slot[index] is StorageBase addStorage)
+        {
+            UIManager.SetStorage(addStorage.size);
         }
 
         // 인벤 쓰는 애면 등록

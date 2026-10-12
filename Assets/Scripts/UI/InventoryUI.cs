@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,7 +52,8 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            slots[i].SetSlot(inventory[i]);
+            Debug.Log("now:" + i);
+            slots[i].SetSlot(inventory[i]); 
         }
     }
 
@@ -73,7 +75,11 @@ public class InventoryUI : MonoBehaviour
         {
             ItemSlotUI slot = Instantiate(slotPrefab, layout.transform
                 ).GetComponent<ItemSlotUI>();
-            slots.Add(slot);
+            slots.Add(slot); 
+            slot.SetClickEvent(() =>
+            {
+                OnSlotClick(slots.IndexOf(slot));
+            });
         }
 
         // 필요한 개수만 활성화
@@ -84,5 +90,12 @@ public class InventoryUI : MonoBehaviour
         size = count;
 
         Refresh();
+    }
+
+    public void SetInventory(Inventory inven)
+    {
+        inventory = inven;
+        size = inven.Length;
+        SetSlotCount(size);
     }
 }

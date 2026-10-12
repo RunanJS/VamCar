@@ -29,6 +29,12 @@
             "id": "gun_unit",
             "maxStack": 1,
             "nbt": [ "shoot", "part" ]
+        },
+        {
+            "itemName": "다용도 트렁크",
+            "id": "storage",
+            "maxStack": 1,
+            "nbt": [ "storage", "part" ]
         }
     ]
 }

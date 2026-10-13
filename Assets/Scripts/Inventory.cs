@@ -1,15 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Inventory : IEnumerable<ItemSlot>
 {
-    [SerializeField] private ItemSlot[] slots;
-    public int Length { get { return slots.Length; } }
+    [SerializeField] private List<ItemSlot> slots = new List<ItemSlot>();
+    public int Length { get { return slots.Count; } }
 
     public ItemSlot this[int index]
     {
@@ -19,10 +16,10 @@ public class Inventory : IEnumerable<ItemSlot>
 
     public Inventory(int slotCount, params ItemSlot[] items)
     {
-        slots = new ItemSlot[slotCount];
-        for (int i = 0; i < slots.Length; i++)
+        slots = new List<ItemSlot>();
+        for (int i = 0; i < slotCount; i++)
         {
-            slots[i] = new ItemSlot();
+            slots.Add(new ItemSlot());
         }
         
         if(items.Length > 0)
@@ -34,18 +31,9 @@ public class Inventory : IEnumerable<ItemSlot>
         }
     }
 
-    void Awake()
-    {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i] == null)
-                slots[i] = new ItemSlot();
-        }
-    }
-
     public ItemSlot GetSlot(int index)
     {
-        if (index < 0 || index >= slots.Length)
+        if (index < 0 || index >= Length)
             return null;
 
         return slots[index];
@@ -53,7 +41,7 @@ public class Inventory : IEnumerable<ItemSlot>
 
     public void SetSlot(int index, Item item, int amount)
     {
-        if (index < 0 || index >= slots.Length)
+        if (index < 0 || index >= Length)
             return;
 
         slots[index].item = item;
@@ -97,7 +85,7 @@ public class Inventory : IEnumerable<ItemSlot>
 
         foreach (ItemSlot slot in slots)
         {
-            if (slot == null || slot.IsEmpty) continue;
+            if (slot.IsEmpty) continue;
 
             count += slot.amount;
 
@@ -121,6 +109,7 @@ public class Inventory : IEnumerable<ItemSlot>
         return count;
     }
 
+    // 비지정 슬롯에 아이템 획득
     public int AddItem(ItemSlot _item)
     {
         return AddItem(_item.item.id, _item.amount);
@@ -135,7 +124,7 @@ public class Inventory : IEnumerable<ItemSlot>
 
         foreach (var _item in slots)
         {
-            if (_item == null || _item.IsEmpty) continue;
+            if (_item.IsEmpty) continue;
             // 여유공간이 있는 같은 아이템이 있을 경우
             if (_item.item.id.Equals(id) && !_item.IsFull)
             {
@@ -147,7 +136,7 @@ public class Inventory : IEnumerable<ItemSlot>
         // 없으면 빈 슬롯 찾기
         if (slot == null)
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < Length; i++)
             {
                 if (slots[i] == null || slots[i].IsEmpty)
                 {
@@ -179,6 +168,12 @@ public class Inventory : IEnumerable<ItemSlot>
         }
     }
 
+    // 맨 위부터 특정 아이템 삭제
+    public bool RemoveItem(ItemSlot _item)
+    {
+        return RemoveItem(_item.id, _item.amount);
+    }
+
     public bool RemoveItem(string id, int amount)
     {
         if (amount <= 0) return false;
@@ -187,7 +182,7 @@ public class Inventory : IEnumerable<ItemSlot>
 
         foreach (ItemSlot slot in slots)
         {
-            if (slot == null || slot.IsEmpty) continue;
+            if (slot.IsEmpty) continue;
 
             if (slot.item.id.Equals(id))
             {
@@ -217,7 +212,7 @@ public class Inventory : IEnumerable<ItemSlot>
 
         foreach (var slot in slots)
         {
-            if (slot == null || slot.IsEmpty) continue;
+            if (slot.IsEmpty) continue;
 
             if(slot.amount < amount)
             {
@@ -237,9 +232,9 @@ public class Inventory : IEnumerable<ItemSlot>
     // 두 슬롯 교환
     public void Swap(int indexA, int indexB)
     {
-        if (indexA < 0 || indexA >= slots.Length) return;
+        if (indexA < 0 || indexA >= Length) return;
 
-        if (indexB < 0 || indexB >= slots.Length) return;
+        if (indexB < 0 || indexB >= Length) return;
 
         ItemSlot temp = slots[indexA];
 
@@ -251,7 +246,7 @@ public class Inventory : IEnumerable<ItemSlot>
     public ItemSlot PickUp(int index, ItemSlot _slot)
     {
         ItemSlot slot = _slot;
-        if (index < 0 || index >= slots.Length)
+        if (index < 0 || index >= Length)
             return slot;
 
         ItemSlot target = slots[index];
@@ -266,7 +261,7 @@ public class Inventory : IEnumerable<ItemSlot>
         {
             slot = target;
             slots[index] = new ItemSlot();
-            Debug.Log("가져오기" + slot.id);
+            //Debug.Log("가져오기" + slot.id);
             return slot;
         }
 
@@ -275,7 +270,7 @@ public class Inventory : IEnumerable<ItemSlot>
         {
             slots[index] = slot;
             slot = new ItemSlot();
-            Debug.Log("넣기" + slots[index].id);
+            //Debug.Log("넣기" + slots[index].id);
             return slot;
         }
 
@@ -309,10 +304,10 @@ public class Inventory : IEnumerable<ItemSlot>
 
     public void Move(int from, int to)
     {
-        if (from < 0 || from >= slots.Length)
+        if (from < 0 || from >= Length)
             return;
 
-        if (to < 0 || to >= slots.Length)
+        if (to < 0 || to >= Length)
             return;
 
         if (from == to)
@@ -358,7 +353,7 @@ public class Inventory : IEnumerable<ItemSlot>
     // 슬롯 하나 비우기
     public void ClearSlot(int index)
     {
-        if (index < 0 || index >= slots.Length)
+        if (index < 0 || index >= Length)
             return;
 
         slots[index].Clear();
@@ -379,7 +374,7 @@ public class Inventory : IEnumerable<ItemSlot>
     // 빈 슬롯 찾기
     public int FindEmptySlot()
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < Length; i++)
         {
             if (slots[i].IsEmpty)
                 return i;
@@ -391,7 +386,7 @@ public class Inventory : IEnumerable<ItemSlot>
     // 특정 아이템이 들어있는 슬롯 찾기
     public int FindItemSlot(string id)
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < Length; i++)
         {
             if (!slots[i].IsEmpty && slots[i].item.id == id)
                 return i;
@@ -400,7 +395,51 @@ public class Inventory : IEnumerable<ItemSlot>
         return -1;
     }
 
+    // 인벤토리 사이즈 증가
+    public void SizeUp(int value)
+    {
+        for (int i = 0; i < value; i++)
+        {
+            slots.Add(new ItemSlot());
+        }
+    }
 
+    // 인벤토리 사이즈 감소
+    public void SizeDown(int value)
+    {
+        // 줄여도 최소 인벤이 1칸은 남아야함
+        if (value >= Length) return;
+
+        for (int i = 0; i < value; i++)
+        {
+            ItemSlot lastSlot = new ItemSlot(slots[Length - 1]);
+
+            // 마지막 칸 지우고
+            slots.RemoveAt(Length - 1);
+
+            // 지운 칸에 뭐 있었으면 재지급
+            if (!lastSlot.IsEmpty)
+            {
+                AddItem(lastSlot);
+                // 추후 DropItem으로 남는거 땅에 뱉게 만듦
+            }
+        }
+    }
+
+    // 사이즈 정해놓고 업다운 자동분류
+    public void Resize(int value)
+    {
+        if (value == Length) return;
+
+        if(value > Length)
+        {
+            SizeUp(value - Length);
+        }
+        else
+        {
+            SizeDown(Length - value);
+        }
+    }
 
     // 배열취급
     public IEnumerator<ItemSlot> GetEnumerator()

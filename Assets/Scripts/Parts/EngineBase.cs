@@ -2,55 +2,51 @@ using UnityEngine;
 
 public abstract class EngineBase : PartBase
 {
-    public float maxFuel;
-    public float fuel;
     public float generateAmount;
     public float generateTime;
+    [SerializeField] private float enginePower;
 
     [Header("작동 중 여부")]
     protected bool isActivated = false;
 
-    [SerializeField] private float enginePower;
-
-    
 
     float timer = 0;
 
-    protected abstract float GetGenerate { get; }
+    protected abstract bool GetRequired { get; }
 
     public float Power
     {
         get
         {
-            if (fuel > 0)
+            if (isActivated)
                 return enginePower;
             else 
                 return 0;
         }
     }
 
-    public float GetEnergy(float requierd)
+    public float Generate()
     {
-        if (fuel < requierd) return 0;
-
-        fuel -= requierd;
-        return requierd;
-    }
-
-    void Update()
-    {
-        if (timer > 0) timer -= Time.deltaTime;
-        if (timer < 0)
+        if (isActivated)
         {
-            timer = generateTime;
-            Generate();
+            if (timer < 0)
+            {
+                isActivated = false;
+                return generateAmount;
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+            }
         }
-    }
-
-    public void Generate()
-    {
-        if (fuel >= maxFuel) return;
-
-        fuel += GetGenerate;
+        else
+        {
+            if (GetRequired)
+            {
+                isActivated = true;
+                timer = generateTime;
+            }
+        }
+        return 0;
     }
 }

@@ -52,7 +52,6 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            Debug.Log("now:" + i);
             slots[i].SetSlot(inventory[i]); 
         }
     }
@@ -88,7 +87,10 @@ public class InventoryUI : MonoBehaviour
             slots[i].gameObject.SetActive(i < count);
         }
         size = count;
-
+        inventory.Resize(count);
+        //Debug.Log("준수" + count);
+        //Debug.Log("인벤사이즈"+inventory.Length);
+        
         Refresh();
     }
 
@@ -97,5 +99,6 @@ public class InventoryUI : MonoBehaviour
         inventory = inven;
         size = inven.Length;
         SetSlotCount(size);
+        //Debug.Log(inven+"이요");
     }
 }

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class AnythingEngine : EngineBase, IConnecter
 {
-    public Inventory storage = new Inventory(5);
+    public Inventory storage = new Inventory(1);
 
     public Inventory ConnectedInventory => storage;
 
-    protected override float GetGenerate
+    protected override bool GetRequired
     {
-        get
+        get 
         {
             // 저장소가 비어있지 않으면
             if (storage.HasItem(1))
@@ -17,9 +17,9 @@ public class AnythingEngine : EngineBase, IConnecter
                 // 아무템 하나 없애고 발전량 전송
                 Debug.Log("발전");
                 storage.RemoveAnyItem(1);
-                return generateAmount;
+                return true;
             }
-            else return 0;
+            return false;
         }
     }
 

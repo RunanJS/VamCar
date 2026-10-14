@@ -727,10 +727,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1298798942}
-  - {fileID: 1558061472660369995}
   - {fileID: 2630495606520454468}
   - {fileID: 824142796}
   - {fileID: 474821595}
+  - {fileID: 1558061472660369995}
   - {fileID: 1387087627}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2771,7 +2771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1387087627
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4630,7 +4630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6362344317525171615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4638,7 +4638,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6362344317525171614}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c705560c05265d4bbdbaa5f54555ccc, type: 3}
   m_Name: 
@@ -4731,7 +4731,6 @@ GameObject:
   - component: {fileID: 2630495606520454468}
   - component: {fileID: 1392146083781196455}
   - component: {fileID: 8557428593453877580}
-  - component: {fileID: 8557428593453877581}
   m_Layer: 5
   m_Name: CarPart_Pannel
   m_TagString: Untagged
@@ -4777,28 +4776,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8557428593453877581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7590160781226029713}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75da66fe2bef8824cb971ef69bcd2957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slots:
-  - {fileID: 1956643717}
-  - {fileID: 1279298648}
-  - {fileID: 309118831}
-  - {fileID: 955307114}
-  - {fileID: 461155664}
-  - {fileID: 1240004502}
-  slotPrefab: {fileID: 4889739930210724914, guid: 12f714b2a21b6074988765683f97cc4b, type: 3}
-  layout: {fileID: 6018335212074394610}
-  size: 32
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -10,7 +10,13 @@
             "itemName": "저품질기름",
             "id": "cheep_oil",
             "maxStack": 64,
-            "nbt": [ "oil", "cheep" ]
+            "nbt": [ "burn", "cheep" ]
+        },
+        {
+            "itemName": "나무조각",
+            "id": "wood",
+            "maxStack": 64,
+            "nbt": [ "burn" ]
         },
         {
             "itemName": "갈갈이",

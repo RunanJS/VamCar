@@ -9,14 +9,12 @@ public class AnythingEngine : EngineBase, IConnecter
 
     protected override bool GetRequired
     {
-        get 
+        get
         {
-            // 저장소가 비어있지 않으면
-            if (storage.HasItem(1))
+            // 아무템 하나 없애고 발전량 전송
+            if (storage.RemoveAnyItem(1))
             {
-                // 아무템 하나 없애고 발전량 전송
                 Debug.Log("발전");
-                storage.RemoveAnyItem(1);
                 return true;
             }
             return false;

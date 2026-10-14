@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class ItemData : MonoBehaviour
 {
@@ -32,8 +33,26 @@ public class ItemData : MonoBehaviour
 
         Debug.Log(json == null ? "JSON NULL" : "JSON OK");
 
-        ItemDatas data = JsonUtility.FromJson<ItemDatas>(json.text);
+        ItemDatas data = JsonConvert.DeserializeObject<ItemDatas>(json.text);
+        //ItemDatas data = JsonUtility.FromJson<ItemDatas>(json.text);
 
+        foreach (var item in data.items)
+        {
+            // 아이템 저장
+            items.Add(item.id, item);
+
+            // 스프라이트 저장
+            Sprite _sprite = Resources.Load<Sprite>("Sprites/" + item.id);
+            sprites.Add(item.id, _sprite);
+
+            // 부품 nbt가 붙으면 프리팹 저장
+            if (item.HasNbt("part"))
+            {
+                GameObject _prefab = Resources.Load<GameObject>("Prefabs/" + item.id);
+                prefabs.Add(item.id, _prefab);
+            }
+        }
+        /*
         foreach (var item in data.items)
         {
             // 아이템 저장
@@ -50,7 +69,7 @@ public class ItemData : MonoBehaviour
                 GameObject _prefab = Resources.Load<GameObject>("Prefabs/" + item.id);
                 prefabs.Add(item.id, _prefab);
             }
-        }
+        }*/
     }
 }
 

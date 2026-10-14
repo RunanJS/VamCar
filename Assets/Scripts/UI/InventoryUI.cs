@@ -19,14 +19,15 @@ public class InventoryUI : MonoBehaviour
         {
             // 사이즈 기준으로 슬롯 생성
             inventory = new Inventory(size);
-
-            slots = new List<ItemSlotUI>();
+            slots = new List<ItemSlotUI>(size);
+            UIManager.Register(inventory);
+            SetInventory(inventory);
             // 인벤칸 소환
-            for (int i = 0; i < size; i++)
+            /*for (int i = 0; i < size; i++)
             {
                 slots.Add(Instantiate(slotPrefab, layout.transform
                     ).GetComponent<ItemSlotUI>());
-            }
+            }*/
         }
         else
         {
@@ -96,9 +97,10 @@ public class InventoryUI : MonoBehaviour
 
     public void SetInventory(Inventory inven)
     {
+        if (inventory != null) inventory.OnChanged -= Refresh;
         inventory = inven;
+        inventory.OnChanged += Refresh;
         size = inven.Length;
         SetSlotCount(size);
-        //Debug.Log(inven+"이요");
     }
 }

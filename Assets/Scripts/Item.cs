@@ -6,9 +6,9 @@ public class Item
     public string itemName;
     public string id;
     public int maxStack = 64;
-    public List<string> nbt = new List<string>();
+    public Dictionary<string, float> nbt = new Dictionary<string, float>();
 
-    public Item(string itemName, string id, int maxStack = 64, params string[] nbts)
+    /*public Item(string itemName, string id, int maxStack = 64, params string[] nbts)
     {
         this.itemName = itemName;
         this.id = id;
@@ -20,6 +20,20 @@ public class Item
                 nbt.Add(item);
             }
         }
+    }*/
+    public Item(string itemName, string id, int maxStack = 64,
+            params (string key, float value)[] nbts)
+    {
+        this.itemName = itemName;
+        this.id = id;
+        this.maxStack = maxStack;
+
+        if (nbts == null) return;
+
+        foreach (var (key, value) in nbts)
+        {
+            nbt[key] = value;   // 같은 키가 두 번 들어와도 오류 없이 덮어씀
+        }
     }
 
     public Item(Item _item)
@@ -27,28 +41,8 @@ public class Item
         this.itemName = _item.itemName;
         this.id = _item.id;
         this.maxStack = _item.maxStack;
-        this.nbt = new List<string>(_item.nbt);
+        this.nbt = new Dictionary<string,float>(_item.nbt);
     }
-
-    /*
-    // 더하고 남는거 반환
-    public Item Add(int _amount)
-    {
-        int remain = amount + _amount - maxStack;
-
-        if (remain <= 0)
-        {
-            amount += _amount;
-            return null;
-        }
-
-        amount = maxStack;
-
-        Item res = new Item(this);
-        res.amount = remain;
-        return res;
-    }
-    */
 
     // nbt 체크
     public bool HasNbt(params string[] inputNbts)

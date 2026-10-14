@@ -6,6 +6,9 @@ using UnityEngine;
 public class Inventory : IEnumerable<ItemSlot>
 {
     [SerializeField] private List<ItemSlot> slots = new List<ItemSlot>();
+    public event Action OnChanged;
+    void NotifyChanged() => OnChanged?.Invoke();
+
     public int Length { get { return slots.Count; } }
 
     public ItemSlot this[int index]
@@ -46,6 +49,7 @@ public class Inventory : IEnumerable<ItemSlot>
 
         slots[index].item = item;
         slots[index].amount = amount;
+        NotifyChanged();
     }
 
     // 아이템이 존재하는지 확인
@@ -164,6 +168,7 @@ public class Inventory : IEnumerable<ItemSlot>
         {
             // 꽉 안차면 그냥 끝
             slot.amount = add;
+            NotifyChanged();
             return 0;
         }
     }
@@ -190,13 +195,14 @@ public class Inventory : IEnumerable<ItemSlot>
                 {
                     // 이 슬롯에서 처리가 끝나는 경우
                     slot.amount -= amount;
+                    NotifyChanged();
                     return true;
                 }
 
                 // 한 묶음 없애기
                 amount -= slot.amount;
                 slot.Clear();
-
+                NotifyChanged();
                 // 한 묶음 없애기로 끝나면 반환
                 if (amount <= 0) return true;
             }
@@ -208,7 +214,8 @@ public class Inventory : IEnumerable<ItemSlot>
     // 최상단 템있는 슬롯 아무거나 하나
     public bool RemoveAnyItem(int amount = 1)
     {
-        if(HasItem(amount)) return false;
+        if (amount <= 0) return false;
+        if (!HasItem(amount)) return false;
 
         foreach (var slot in slots)
         {
@@ -223,10 +230,49 @@ public class Inventory : IEnumerable<ItemSlot>
             {
                 slot.amount -= amount;
                 if (slot.amount <= 0) slot.Clear();
+                NotifyChanged();
                 return true;
             }
         }
         return false;
+    }
+
+    // NBT가 맞는 아이템의 총 수량
+    public int CountNbtItem(string nbt)
+    {
+        int count = 0;
+        foreach (var slot in slots)
+        {
+            if (!slot.IsEmpty && slot.item.HasNbt(nbt))
+                count += slot.amount;
+        }
+        return count;
+    }
+
+    public bool RemoveNbtItem(string nbt, int amount)
+    {
+        if (amount <= 0) return false;
+        // 부족하면 아무것도 지우지 않음
+        if (CountNbtItem(nbt) < amount) return false;
+
+        foreach (var slot in slots)
+        {
+            if (slot.IsEmpty || !slot.item.HasNbt(nbt)) continue;
+
+            int take = Mathf.Min(slot.amount, amount);
+            slot.amount -= take;
+            amount -= take;
+
+            if (slot.amount <= 0) slot.Clear();
+            if (amount <= 0)
+            {
+                NotifyChanged();
+                return true;
+            }
+
+        }
+        NotifyChanged();
+        return true;
     }
 
     // 두 슬롯 교환
@@ -240,6 +286,7 @@ public class Inventory : IEnumerable<ItemSlot>
 
         slots[indexA] = slots[indexB];
         slots[indexB] = temp;
+        NotifyChanged();
     }
 
     // 교체
@@ -262,6 +309,7 @@ public class Inventory : IEnumerable<ItemSlot>
             slot = target;
             slots[index] = new ItemSlot();
             //Debug.Log("가져오기" + slot.id);
+            NotifyChanged();
             return slot;
         }
 
@@ -271,6 +319,7 @@ public class Inventory : IEnumerable<ItemSlot>
             slots[index] = slot;
             slot = new ItemSlot();
             //Debug.Log("넣기" + slots[index].id);
+            NotifyChanged();
             return slot;
         }
 
@@ -291,6 +340,7 @@ public class Inventory : IEnumerable<ItemSlot>
                 target.amount = maxStack;
                 slot.amount = add - maxStack;
             }
+            NotifyChanged();
             Debug.Log("합치기" + target.id + " " + target.amount + "개");
             return slot;
         }
@@ -299,6 +349,7 @@ public class Inventory : IEnumerable<ItemSlot>
         slots[index] = slot;
         slot = target;
         Debug.Log("바꾸기" + slot.id + ", " + slots[index]);
+        NotifyChanged();
         return slot;
     }
 
@@ -357,6 +408,7 @@ public class Inventory : IEnumerable<ItemSlot>
             return;
 
         slots[index].Clear();
+        NotifyChanged();
     }
 
     // 비어있는지 확인

@@ -99,7 +99,16 @@ public class CarManager : InventoryUI
     public override void OnSlotClickPlus(int index)
     {
         string res = inventory[index].IsEmpty ? "" : inventory[index].id;
-        SetPart(index, res);
+        if (inventory[index].item.HasTag("part"))
+        {
+            SetPart(index, res);
+        }
+        else
+        {
+            Debug.Log("ÆÄÃ÷¾Æ´Ñ°Å³¢¿öÁü ¹ÝÈ¯");
+            PlayerHand.Hand = inventory.PickUp(index, PlayerHand.Hand);
+            Refresh();
+        }
     }
 
     private void Update()

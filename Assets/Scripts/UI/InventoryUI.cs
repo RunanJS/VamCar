@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] public Inventory inventory;
-    [SerializeField] private List<ItemSlotUI> slots = new List<ItemSlotUI>();
+    [SerializeField] protected List<ItemSlotUI> slots = new List<ItemSlotUI>();
 
     [Header("¿ŒΩ∫∆Â≈Õ")]
     [SerializeField] private GameObject slotPrefab;

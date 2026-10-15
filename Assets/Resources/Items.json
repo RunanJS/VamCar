@@ -4,43 +4,51 @@
             "itemName": "스크랩",
             "id": "scrap",
             "maxStack": 64,
-            "nbt": [ "scrap", "material" ]
+            "tags": [ "scrap" ]
         },
         {
             "itemName": "저품질기름",
             "id": "cheep_oil",
             "maxStack": 64,
-            "nbt": [ "burn", "cheep" ]
+            "tags": [ "oil" ],
+            "stats": { "burn": 4 }
         },
         {
             "itemName": "나무조각",
             "id": "wood",
             "maxStack": 64,
-            "nbt": [ "burn" ]
+            "tags": [ "wood" ],
+            "stats": { "burn": 1 }
         },
         {
             "itemName": "갈갈이",
             "id": "saw_bumper",
             "maxStack": 1,
-            "nbt": [ "bumper", "part" ]
+            "tags": [ "bumper", "part" ]
         },
         {
             "itemName": "아무거나엔진",
             "id": "anything_engine",
             "maxStack": 1,
-            "nbt": [ "engine", "part" ]
+            "tags": [ "engine", "part" ]
+        },
+        {
+            "itemName": "석탄엔진",
+            "id": "fire_engine",
+            "maxStack": 1,
+            "tags": [ "engine", "part" ]
         },
         {
             "itemName": "빵빵이",
             "id": "gun_unit",
             "maxStack": 1,
-            "nbt": [ "shoot", "part" ]
+            "tags": [ "shoot", "part" ]
         },
         {
-            "itemName": "다용도 트렁크",
+            "itemName": "트렁크 확장팩",
             "id": "storage",
             "maxStack": 1,
-            "nbt": [ "storage", "part" ]
+            "tags": [ "storage", "part" ]
         }
     ]
 }

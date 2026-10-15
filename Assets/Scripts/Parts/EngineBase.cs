@@ -9,7 +9,7 @@ public abstract class EngineBase : PartBase
     [Header("작동 중 여부")]
     protected bool isActivated = false;
 
-
+    protected float generateValue = 1;
     float timer = 0;
 
     protected abstract bool GetRequired { get; }

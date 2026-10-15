@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class FireEngine : EngineBase, IConnecter
 {
@@ -11,17 +12,18 @@ public class FireEngine : EngineBase, IConnecter
         get
         {
             // 타는템 하나 없애고 발전량 전송
-            if (storage.RemoveNbtItem("burn",1))
+            float res = storage.RemoveStatItem("burn");
+            if (res == 0) return false;
+            else
             {
-                Debug.Log("발전");
+                generateValue = res;
                 return true;
             }
-            return false;
         }
     }
 
+
     public override void SkillEffect(SkillContext context)
     {
-        new SkillContext();
     }
 }

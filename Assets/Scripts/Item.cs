@@ -6,65 +6,43 @@ public class Item
     public string itemName;
     public string id;
     public int maxStack = 64;
-    public Dictionary<string, float> nbt = new Dictionary<string, float>();
+    public HashSet<string> tags = new HashSet<string>();
+    public Dictionary<string, float> stats = new Dictionary<string, float>();
 
-    /*public Item(string itemName, string id, int maxStack = 64, params string[] nbts)
-    {
-        this.itemName = itemName;
-        this.id = id;
-        this.maxStack = maxStack;
-        if (nbts.Length > 0 && nbts != null)
-        {
-            foreach (var item in nbts)
-            {
-                nbt.Add(item);
-            }
-        }
-    }*/
+    public Item() { }
+
     public Item(string itemName, string id, int maxStack = 64,
-            params (string key, float value)[] nbts)
+                IEnumerable<string> tags = null,
+                Dictionary<string, float> stats = null)
     {
         this.itemName = itemName;
         this.id = id;
         this.maxStack = maxStack;
 
-        if (nbts == null) return;
-
-        foreach (var (key, value) in nbts)
-        {
-            nbt[key] = value;   // 같은 키가 두 번 들어와도 오류 없이 덮어씀
-        }
+        if (tags != null) this.tags = new HashSet<string>(tags);
+        if (stats != null) this.stats = new Dictionary<string, float>(stats);
     }
 
+    // 복사 생성자
     public Item(Item _item)
     {
-        this.itemName = _item.itemName;
-        this.id = _item.id;
-        this.maxStack = _item.maxStack;
-        this.nbt = new Dictionary<string,float>(_item.nbt);
+        itemName = _item.itemName;
+        id = _item.id;
+        maxStack = _item.maxStack;
+        tags = new HashSet<string>(_item.tags);
+        stats = new Dictionary<string, float>(_item.stats);
     }
 
-    // nbt 체크
-    public bool HasNbt(params string[] inputNbts)
-    {
-        bool res = false;
-        int currectCount = 0;
+    // 태그가 있는지
+    public bool HasTag(string tag) => tags.Contains(tag);
 
-        foreach (var inputNbt in inputNbts)
-        {
-            foreach (var myNbt in nbt)
-            {
-                if (inputNbt.Equals(myNbt))
-                {
-                    currectCount++;
-                    break;
-                }
-            }
-        }
+    // 모든 태그를 가지고 있는지
+    public bool HasTags(params string[] inputTags) => tags.IsSupersetOf(inputTags);
 
-        // 일치하는 nbt 수 == 일치해야 하는 nbt 수일 때 참
-        res = currectCount == inputNbts.Length ? true : false;
+    // 스탯이 있는지
+    public bool HasStat(string key) => stats.ContainsKey(key);
 
-        return res;
-    }
+    // 스탯 값 읽기
+    public float GetStat(string key, float defaultValue = 0f)
+        => stats.TryGetValue(key, out float v) ? v : defaultValue;
 }

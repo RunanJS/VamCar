@@ -179,6 +179,11 @@ public class Inventory : IEnumerable<ItemSlot>
         return RemoveItem(_item.id, _item.amount);
     }
 
+    public bool RemoveItem(ItemSlot _item, int amount)
+    {
+        return RemoveItem(_item.id, amount);
+    }
+
     public bool RemoveItem(string id, int amount)
     {
         if (amount <= 0) return false;
@@ -237,27 +242,27 @@ public class Inventory : IEnumerable<ItemSlot>
         return false;
     }
 
-    // NBT가 맞는 아이템의 총 수량
-    public int CountNbtItem(string nbt)
+    // Tag가 맞는 아이템의 총 수량
+    public int CountTagItem(string tag)
     {
         int count = 0;
         foreach (var slot in slots)
         {
-            if (!slot.IsEmpty && slot.item.HasNbt(nbt))
+            if (!slot.IsEmpty && slot.item.HasTag(tag))
                 count += slot.amount;
         }
         return count;
     }
 
-    public bool RemoveNbtItem(string nbt, int amount)
+    public bool RemoveTagItem(string tag, int amount)
     {
         if (amount <= 0) return false;
         // 부족하면 아무것도 지우지 않음
-        if (CountNbtItem(nbt) < amount) return false;
+        if (CountTagItem(tag) < amount) return false;
 
         foreach (var slot in slots)
         {
-            if (slot.IsEmpty || !slot.item.HasNbt(nbt)) continue;
+            if (slot.IsEmpty || !slot.item.HasTag(tag)) continue;
 
             int take = Mathf.Min(slot.amount, amount);
             slot.amount -= take;
@@ -273,6 +278,49 @@ public class Inventory : IEnumerable<ItemSlot>
         }
         NotifyChanged();
         return true;
+    }
+
+    // Stat가 맞는 아이템의 총 수량
+    public int CountStatItem(string stat)
+    {
+        int count = 0;
+        foreach (var slot in slots)
+        {
+            if (!slot.IsEmpty && slot.item.HasStat(stat))
+                count += slot.amount;
+        }
+        return count;
+    }
+
+    public float RemoveStatItem(string stat,int amount = 1)
+    {
+        if (amount <= 0) return 0;
+        // 부족하면 아무것도 지우지 않음
+        if (CountStatItem(stat) < amount) return 0;
+
+        float res = 0;
+        foreach (var slot in slots)
+        {
+            if (slot.IsEmpty || !slot.item.HasStat(stat)) continue;
+
+            int take = Mathf.Min(slot.amount, amount);
+
+            res += take;
+
+            slot.amount -= take;
+            amount -= take;
+
+            if (slot.amount <= 0) slot.Clear();
+            if (amount <= 0)
+            {
+                NotifyChanged();
+                // 받은 벨류만큼 반환
+                return res;
+            }
+
+        }
+        NotifyChanged();
+        return res;
     }
 
     // 두 슬롯 교환

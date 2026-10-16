@@ -20,6 +20,7 @@ public class CarManager : InventoryUI
     PartBase[] slot = new PartBase[6];
     List<IUpdated> updatedParts = new List<IUpdated>();
     List<EngineBase> engines = new List<EngineBase>();
+    List<ISpeed> enginePowers = new List<ISpeed>();
 
     [Header("레벨 관련")]
     public float exp;
@@ -55,6 +56,10 @@ public class CarManager : InventoryUI
             if (slot[index] is EngineBase removeEngine)
                 engines.Remove(removeEngine);
 
+            // 엔진출력 등록해제
+            if (slot[index] is ISpeed power)
+                enginePowers.Remove(power);
+
             Destroy(slot[index].gameObject);
             slot[index] = null;
             //Debug.Log("제거");
@@ -80,6 +85,10 @@ public class CarManager : InventoryUI
             // 엔진 등록
             if (slot[index] is EngineBase addEngine)
                 engines.Add(addEngine);
+
+            // 엔진출력 등록
+            if (slot[index] is ISpeed power)
+                enginePowers.Add(power);
         }
     }
 
@@ -88,7 +97,7 @@ public class CarManager : InventoryUI
         get 
         {
             float powerAdd = 0;
-            foreach (var item in engines)
+            foreach (var item in enginePowers)
             {
                 powerAdd += item.Power;
             }
@@ -99,7 +108,7 @@ public class CarManager : InventoryUI
     public override void OnSlotClickPlus(int index)
     {
         string res = inventory[index].IsEmpty ? "" : inventory[index].id;
-        if (inventory[index].item.HasTag("part"))
+        if (inventory[index].IsEmpty || inventory[index].item.HasTag("part"))
         {
             SetPart(index, res);
         }

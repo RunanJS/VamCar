@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Enemy : Unit
+public abstract class Enemy : Unit
 {
+    public GameObject target;
+
     private void OnEnable()
     {
         EnemyManager.Instance.Register(this);
@@ -10,5 +12,12 @@ public class Enemy : Unit
     private void OnDisable()
     {
         EnemyManager.Instance.Unregister(this);
+    }
+
+    protected abstract bool MoveRequirement { get; }
+
+    protected virtual void Move()
+    {
+
     }
 }

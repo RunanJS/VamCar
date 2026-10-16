@@ -15,12 +15,7 @@ public class BasicGun : WeaponBase, IUpdated
         timer += Time.deltaTime;
         if(timer > rapidSpeed)
         {
-            SkillEffect(new SkillContext
-            {
-                target =
-                    EnemyManager.Instance.GetNearestEnemy(
-                        transform.position)
-            });
+            SkillEffect(new SkillContext());
             timer = 0;
         }
     }
@@ -29,6 +24,6 @@ public class BasicGun : WeaponBase, IUpdated
     {
         Instantiate(bullet, firePos.position, transform.rotation)
             .GetComponent<Bullet>().SetBullet(
-            bulletSpeed, power, context.target.transform);
+            bulletSpeed, power);
     }
 }

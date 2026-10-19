@@ -12,13 +12,8 @@ public class CarController : MonoBehaviour
 
     public CarManager carManager;
 
-    public float MotorTorque
-    {
-        get
-        {
-            return carManager.EnginePower * 1000f;
-        }
-    }
+    public float MotorTorque => carManager.EnginePower * 1000f;
+
     public float maxSteerAngle = 30f;
 
     public float engineBrakeTorque = 500;
@@ -37,8 +32,41 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float x = MoveInput.x;
+        float y = MoveInput.y;
+
+        if (IsBrake)
+        {
+            x = 0;
+            y = 0;
+        }
+
+        if (y == 0)
+        {
+            wheelRL.motorTorque = -x * MotorTorque / 2;
+            wheelFL.motorTorque = -x * MotorTorque / 2;
+            wheelRR.motorTorque = x * MotorTorque / 2;
+            wheelFR.motorTorque = x * MotorTorque / 2;
+        }
+        else if (x == 0)
+        {
+            wheelRL.motorTorque = y * MotorTorque;
+            wheelRR.motorTorque = y * MotorTorque;
+        }
+        else if (x > 0)
+        {
+            wheelRL.motorTorque = x * MotorTorque;
+            wheelRR.motorTorque = x * MotorTorque / 2;
+        }
+        else if (x < 0)
+        {
+            wheelRL.motorTorque = x * MotorTorque / 2;
+            wheelRR.motorTorque = x * MotorTorque;
+        }
+
+        /*
         // 브레이크시 입력 씹음
-        float input = IsBrake ? 0 : MoveInput.y;
+        float input = IsBrake ? 0 : y;
 
         // W/S
         float motor = input * MotorTorque;
@@ -56,13 +84,21 @@ public class CarController : MonoBehaviour
         wheelRR.motorTorque = motor;
 
         // A/D
-        float steer = MoveInput.x * maxSteerAngle;
+        float steer = x * maxSteerAngle;
 
         wheelFL.steerAngle = steer;
         wheelFR.steerAngle = steer;
 
         // 드리프트
         SetDrift(IsBrake);
+
+        if(MoveInput.y == 0)
+        {
+            wheelRL.motorTorque = -motor;
+            wheelFL.motorTorque = -motor;
+            wheelRR.motorTorque = motor;
+            wheelFR.motorTorque = motor;
+        }*/
     }
 
     

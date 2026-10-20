@@ -1,26 +1,16 @@
 using UnityEngine;
 
-public class BasicGun : WeaponBase, IUpdated
+public class BasicGun : WeaponBase
 {
-    private float timer;
     [SerializeField] private float bulletSpeed = 7;
     [SerializeField] private float rapidSpeed = 3;
-    [SerializeField] private float range = 25;
     [SerializeField] private LayerMask targetMask;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firePos;
 
-    public void OnUpdate()
-    {
-        timer += Time.deltaTime;
-        if(timer > rapidSpeed)
-        {
-            SkillEffect(new SkillContext());
-            timer = 0;
-        }
-    }
+    public override float GetTime => rapidSpeed;
 
-    public override void SkillEffect(SkillContext context)
+    public override void SkillEffect()
     {
         Instantiate(bullet, firePos.position, transform.rotation)
             .GetComponent<Bullet>().SetBullet(

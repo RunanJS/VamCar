@@ -23,7 +23,7 @@ public class FireEngine : EngineBase, IConnecter
     }
 
 
-    public override void SkillEffect(SkillContext context)
+    public override void SkillEffect()
     {
     }
 }

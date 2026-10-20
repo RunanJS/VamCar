@@ -6,10 +6,12 @@ public class Unit : MonoBehaviour
     [SerializeField] protected float currentHp;
     [SerializeField] protected float maxHp;
     private bool isDead = false;
+    protected Rigidbody rb;
 
     protected virtual void Start()
     {
         currentHp = maxHp;
+        rb = GetComponent<Rigidbody>();
     }
 
     public void OnDamaged(float damage)

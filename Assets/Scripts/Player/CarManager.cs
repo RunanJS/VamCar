@@ -3,15 +3,7 @@ using UnityEngine;
 
 public class CarManager : InventoryUI
 {
-    /*
-    public PartBase<GameObject>[] top;
-    public PartBase<GameObject>[] bottom;
-    public PartBase<GameObject>[] left;
-    public PartBase<GameObject>[] right;
-    public PartBase<GameObject>[] front;
-    public PartBase<GameObject>[] back;
-    public PartBase<GameObject>[] inside;
-    */
+    public static CarManager Inst;
 
     [Header("파츠가 붙는 위치")]
     [SerializeField] Transform[] slotPoint = new Transform[6];
@@ -120,8 +112,26 @@ public class CarManager : InventoryUI
         }
     }
 
+    void Awake()
+    {
+        if (Inst == null) Inst = this;
+        else Destroy(this);
+    }
+
     private void Update()
     {
+        foreach (var part in slot)
+        {
+            if(part == null) continue;
+            if (part.IsActivated) part.timer += Time.deltaTime;
+            if (part.timer > part.GetTime)
+            {
+                part.timer = 0;
+                part.SkillEffect();
+            }
+        }
+
+        /*
         foreach (var item in updatedParts)
         {
             item.OnUpdate();
@@ -135,7 +145,7 @@ public class CarManager : InventoryUI
             {
                 LevelUp();
             }
-        }
+        }*/
     }
 
     private void LevelUp()

@@ -12,7 +12,7 @@ public abstract class BumperBase : PartBase
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent<Enemy>(out Enemy e))
-            SkillEffect(new SkillContext { target = e });
+            Shock(e);
     }
 
     // 이 아래로 공격 방식

@@ -2,7 +2,11 @@ using UnityEngine;
 
 public abstract class PartBase : MonoBehaviour
 {
-    public abstract void SkillEffect(SkillContext context);
+    public float timer;
+    public abstract float GetTime { get; }
+    public virtual bool IsActivated { get; } = true;
+
+    public abstract void SkillEffect();
 }
 
 public class SkillContext

@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class BasicBumper : BumperBase
 {
-    public override void SkillEffect(SkillContext context)
+    public override bool IsActivated => false;
+    public override float GetTime => 0;
+
+    public override void SkillEffect()
     {
-        Shock(context.target);
     }
 }

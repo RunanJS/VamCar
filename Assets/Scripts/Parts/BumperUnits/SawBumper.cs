@@ -1,29 +1,22 @@
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class SawBumper : WeaponBase, IUpdated
+public class SawBumper : WeaponBase
 {
     [SerializeField] GameObject[] obj;
 
-    public void OnUpdate()
+    public override float GetTime => Time.deltaTime;
+
+    public override void SkillEffect()
     {
         float speed = 500 * Time.deltaTime;
         obj[0].transform.Rotate(0, speed, 0);
         obj[1].transform.Rotate(0, -speed, 0);
-    }
 
-    public void OnTriggerStay(Collider other)
-    {
-        Debug.Log(other.name);
-        if (other.TryGetComponent<Unit>(out Unit target))
+        foreach (var target in targets)
         {
-            SkillEffect(new SkillContext { target = target });
+            target.OnDamaged(power * Time.deltaTime);
         }
-    }
-
-    public override void SkillEffect(SkillContext context)
-    {
-        context.target.OnDamaged(power * Time.deltaTime);
     }
 
 }

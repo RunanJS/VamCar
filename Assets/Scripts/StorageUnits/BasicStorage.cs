@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class BasicStorage : StorageBase
 {
+    public override float GetTime => throw new System.NotImplementedException();
 
-    public override void SkillEffect(SkillContext context)
+    public override void SkillEffect()
     {
         
     }

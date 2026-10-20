@@ -6,19 +6,36 @@ public abstract class EngineBase : PartBase
     public float generateTime;
     [SerializeField] private float enginePower;
 
-    [Header("작동 중 여부")]
-    protected bool isActivated = false;
-
     protected float generateValue = 1;
-    float timer = 0;
+    protected bool isFuelOn = false;
+
+    public override float GetTime => generateTime;
 
     protected abstract bool GetRequired { get; }
+    public override bool IsActivated
+    {
+        get
+        {
+            if (!isFuelOn)
+            {
+                if (GetRequired)
+                {
+                    isFuelOn = true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
 
     public float Power
     {
         get
         {
-            if (isActivated)
+            if (IsActivated)
                 return enginePower;
             else 
                 return 0;
@@ -27,11 +44,11 @@ public abstract class EngineBase : PartBase
 
     public float Generate()
     {
-        if (isActivated)
+        if (isFuelOn)
         {
             if (timer < 0)
             {
-                isActivated = false;
+                isFuelOn = false;
                 return generateAmount;
             }
             else
@@ -43,10 +60,16 @@ public abstract class EngineBase : PartBase
         {
             if (GetRequired)
             {
-                isActivated = true;
+                isFuelOn = true;
                 timer = generateTime;
             }
         }
         return 0;
+    }
+
+    public override void SkillEffect()
+    {
+        CarManager.Inst.exp += generateAmount;
+        isFuelOn = false;
     }
 }

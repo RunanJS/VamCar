@@ -20,9 +20,4 @@ public class AnythingEngine : EngineBase, IConnecter
             return false;
         }
     }
-
-    public override void SkillEffect(SkillContext context)
-    {
-        
-    }
 }

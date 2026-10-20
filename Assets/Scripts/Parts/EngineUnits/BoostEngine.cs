@@ -8,6 +8,8 @@ public class BoostAddOn : AddOnBase, ISpeed, IUpdated
 
     public float Power { get { return driftPower; } }
 
+    public override float GetTime => throw new System.NotImplementedException();
+
     public void OnUpdate()
     {
         if (InputManager.Brake && InputManager.Move != Vector2.zero)
@@ -25,7 +27,7 @@ public class BoostAddOn : AddOnBase, ISpeed, IUpdated
         }
     }
 
-    public override void SkillEffect(SkillContext context)
+    public override void SkillEffect()
     {
         throw new System.NotImplementedException();
     }

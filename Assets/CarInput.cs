@@ -118,6 +118,15 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""588b324c-6c2e-478e-81ee-3701eae1e65a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -197,6 +206,28 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a5c5649-0e84-4800-98cf-7badca479fc0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4374c572-c8ba-4a0b-a85a-31068e9622ea"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,6 +239,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
         m_Car_Move = m_Car.FindAction("Move", throwIfNotFound: true);
         m_Car_Brake = m_Car.FindAction("Brake", throwIfNotFound: true);
         m_Car_Inventory = m_Car.FindAction("Inventory", throwIfNotFound: true);
+        m_Car_Esc = m_Car.FindAction("Esc", throwIfNotFound: true);
     }
 
     ~@CarInput()
@@ -291,6 +323,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Car_Move;
     private readonly InputAction m_Car_Brake;
     private readonly InputAction m_Car_Inventory;
+    private readonly InputAction m_Car_Esc;
     /// <summary>
     /// Provides access to input actions defined in input action map "Car".
     /// </summary>
@@ -314,6 +347,10 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Car/Inventory".
         /// </summary>
         public InputAction @Inventory => m_Wrapper.m_Car_Inventory;
+        /// <summary>
+        /// Provides access to the underlying input action "Car/Esc".
+        /// </summary>
+        public InputAction @Esc => m_Wrapper.m_Car_Esc;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -349,6 +386,9 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @Esc.started += instance.OnEsc;
+            @Esc.performed += instance.OnEsc;
+            @Esc.canceled += instance.OnEsc;
         }
 
         /// <summary>
@@ -369,6 +409,9 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @Esc.started -= instance.OnEsc;
+            @Esc.performed -= instance.OnEsc;
+            @Esc.canceled -= instance.OnEsc;
         }
 
         /// <summary>
@@ -430,5 +473,12 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Esc" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEsc(InputAction.CallbackContext context);
     }
 }

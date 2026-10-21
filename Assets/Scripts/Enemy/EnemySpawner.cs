@@ -32,6 +32,6 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPos = pos + offset;
         spawnPos.y = 1f;
 
-        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        Instantiate(enemyPrefab, spawnPos, Quaternion.identity).target = Player.gameObject;
     }
 }

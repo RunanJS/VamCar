@@ -10,8 +10,6 @@ public class CarManager : InventoryUI
 
     // 상하전후좌우
     PartBase[] slot = new PartBase[6];
-    List<IUpdated> updatedParts = new List<IUpdated>();
-    List<EngineBase> engines = new List<EngineBase>();
     List<ISpeed> enginePowers = new List<ISpeed>();
 
     [Header("레벨 관련")]
@@ -23,6 +21,18 @@ public class CarManager : InventoryUI
         get { return Mathf.RoundToInt(5 * Mathf.Pow(lv, 1.3f)); }
     }
 
+    public float EnginePower
+    {
+        get
+        {
+            float powerAdd = 0;
+            foreach (var item in enginePowers)
+            {
+                powerAdd += item.Power;
+            }
+            return 1 + powerAdd / 10;
+        }
+    }
 
     public void SetPart(int index, string partId)
     {
@@ -32,10 +42,6 @@ public class CarManager : InventoryUI
         // 제거
         if (slot[index] != null && partId == "")
         {
-            // updated면 제거
-            if (slot[index] is IUpdated updateRemoved)
-                updatedParts.Remove(updateRemoved);
-
             // 창고 등록해제
             if (slot[index] is StorageBase removeStorage)
                 UIManager.SetStorage(-removeStorage.size);
@@ -43,10 +49,6 @@ public class CarManager : InventoryUI
             // 인벤 쓰는 애면 등록 해제
             if (slot[index] is IConnecter connectRemoved)
                 UIManager.UnRegister(connectRemoved.ConnectedInventory);
-
-            // 엔진 해제
-            if (slot[index] is EngineBase removeEngine)
-                engines.Remove(removeEngine);
 
             // 엔진출력 등록해제
             if (slot[index] is ISpeed power)
@@ -62,10 +64,6 @@ public class CarManager : InventoryUI
             slot[index] = Instantiate(ItemData.GetPrefab(partId), slotPoint[index]
                 ).GetComponent<PartBase>();
 
-            // 업데이트 필요하면 등록
-            if (slot[index] is IUpdated updated)
-                updatedParts.Add(updated);
-
             // 창고 등록
             if (slot[index] is StorageBase addStorage)
                 UIManager.SetStorage(addStorage.size);
@@ -74,28 +72,12 @@ public class CarManager : InventoryUI
             if (slot[index] is IConnecter connecter)
                 UIManager.Register(connecter.ConnectedInventory);
 
-            // 엔진 등록
-            if (slot[index] is EngineBase addEngine)
-                engines.Add(addEngine);
-
             // 엔진출력 등록
             if (slot[index] is ISpeed power)
                 enginePowers.Add(power);
         }
     }
 
-    public float EnginePower
-    {
-        get 
-        {
-            float powerAdd = 0;
-            foreach (var item in enginePowers)
-            {
-                powerAdd += item.Power;
-            }
-            return 1 + powerAdd / 10;
-        }
-    }
 
     public override void OnSlotClickPlus(int index)
     {

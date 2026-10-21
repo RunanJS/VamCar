@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CarController : MonoBehaviour
+public class CarController : Unit
 {
     [Header("바퀴")]
     [SerializeField] WheelCollider wheelFL;
@@ -12,26 +13,22 @@ public class CarController : MonoBehaviour
 
     public CarManager carManager;
 
-    public float MotorTorque => carManager.EnginePower * 1000f;
-
-    public float maxSteerAngle = 30f;
-
-    public float engineBrakeTorque = 500;
     public bool IsBrake => InputManager.Brake;
 
     private Vector2 MoveInput => InputManager.Move;
-    Rigidbody rb;
 
 
-    void Start()
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        base.Start();
         rb.centerOfMass = new Vector3(0, -0.5f, 0);
         carManager = GetComponent<CarManager>();
     }
 
     private void FixedUpdate()
     {
+        if (isDead) return;
+
         float x = MoveInput.x;
         float y = MoveInput.y;
 
@@ -41,28 +38,11 @@ public class CarController : MonoBehaviour
             y = 0;
         }
 
-        if (y == 0)
-        {
-            wheelRL.motorTorque = -x * MotorTorque / 2;
-            wheelFL.motorTorque = -x * MotorTorque / 2;
-            wheelRR.motorTorque = x * MotorTorque / 2;
-            wheelFR.motorTorque = x * MotorTorque / 2;
-        }
-        else if (x == 0)
-        {
-            wheelRL.motorTorque = y * MotorTorque;
-            wheelRR.motorTorque = y * MotorTorque;
-        }
-        else if (x > 0)
-        {
-            wheelRL.motorTorque = x * MotorTorque;
-            wheelRR.motorTorque = x * MotorTorque / 2;
-        }
-        else if (x < 0)
-        {
-            wheelRL.motorTorque = x * MotorTorque / 2;
-            wheelRR.motorTorque = x * MotorTorque;
-        }
+        rb.MovePosition(transform.position + transform.forward 
+            * y * stat.speed *  carManager.EnginePower * Time.deltaTime);
+
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f,
+            x * 90f * Time.deltaTime, 0f));
 
         /*
         // 브레이크시 입력 씹음

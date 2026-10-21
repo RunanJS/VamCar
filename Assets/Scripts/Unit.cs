@@ -5,7 +5,8 @@ public class Unit : MonoBehaviour
 {
     [SerializeField] protected float currentHp;
     [SerializeField] protected float maxHp;
-    private bool isDead = false;
+    public Status stat;
+    protected bool isDead = false;
     protected Rigidbody rb;
 
     protected virtual void Start()

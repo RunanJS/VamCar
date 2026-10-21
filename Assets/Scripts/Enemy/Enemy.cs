@@ -27,7 +27,7 @@ public abstract class Enemy : Unit
         transform.rotation = Quaternion.Slerp(transform.rotation, look, 
             7 * Time.deltaTime);
 
-        rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
+        rb.MovePosition(transform.position + stat.speed * transform.forward * Time.deltaTime);
     }
 
     void Update()

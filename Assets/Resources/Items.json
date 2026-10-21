@@ -45,6 +45,12 @@
             "tags": [ "shoot", "part" ]
         },
         {
+            "itemName": "포크레인",
+            "id": "poclain_unit",
+            "maxStack": 1,
+            "tags": [ "bumper", "part" ]
+        },
+        {
             "itemName": "트렁크 확장팩",
             "id": "storage",
             "maxStack": 1,

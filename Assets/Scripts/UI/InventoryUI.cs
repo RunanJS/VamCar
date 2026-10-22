@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] protected GameObject layout;
     public int size = 32;
 
-    private void Start()
+    protected virtual void Start()
     {
         // 미리 슬롯 설정 안해놓으면
         if (slots.Count <= 0)

@@ -15,7 +15,7 @@ public class SawBumper : WeaponBase
 
         foreach (var target in targets)
         {
-            target.OnDamaged(power * Time.deltaTime);
+            target.OnDamaged(Power * Time.deltaTime);
         }
     }
 

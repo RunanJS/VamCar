@@ -23,8 +23,7 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == enemyMask && 
-            other.TryGetComponent<Unit>(out var unit))
+        if (other.TryGetComponent<Unit>(out var unit))
         {
             unit.OnDamaged(power);
             Destroy(gameObject);

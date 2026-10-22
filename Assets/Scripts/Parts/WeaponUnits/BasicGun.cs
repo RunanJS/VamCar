@@ -14,6 +14,6 @@ public class BasicGun : WeaponBase
     {
         Instantiate(bullet, firePos.position, transform.rotation)
             .GetComponent<Bullet>().SetBullet(
-            bulletSpeed, power);
+            bulletSpeed, Power);
     }
 }

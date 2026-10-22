@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        canvas.enabled = false;
     }
 
     void Toggle()

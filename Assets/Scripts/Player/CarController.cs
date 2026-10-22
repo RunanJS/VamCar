@@ -3,7 +3,7 @@ using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CarController : Unit
+public class CarController : MonoBehaviour
 {
     [Header("¹ÙÄû")]
     [SerializeField] WheelCollider wheelFL;
@@ -11,24 +11,19 @@ public class CarController : Unit
     [SerializeField] WheelCollider wheelRL;
     [SerializeField] WheelCollider wheelRR;
 
-    public CarManager carManager;
+    Rigidbody rb;
 
     public bool IsBrake => InputManager.Brake;
 
     private Vector2 MoveInput => InputManager.Move;
 
-
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-        rb.centerOfMass = new Vector3(0, -0.5f, 0);
-        carManager = GetComponent<CarManager>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
+    public void Move(float speed)
     {
-        if (isDead) return;
-
         float x = MoveInput.x;
         float y = MoveInput.y;
 
@@ -39,7 +34,7 @@ public class CarController : Unit
         }
 
         rb.MovePosition(transform.position + transform.forward 
-            * y * stat.speed *  carManager.EnginePower * Time.deltaTime);
+            * y * speed * Time.deltaTime);
 
         rb.MoveRotation(rb.rotation * Quaternion.Euler(0f,
             x * 90f * Time.deltaTime, 0f));
@@ -81,7 +76,7 @@ public class CarController : Unit
         }*/
     }
 
-    
+    /*
     private void SetDrift(bool drift)
     {
         float stiffness = drift ? 0.3f : 1.0f;
@@ -98,6 +93,6 @@ public class CarController : Unit
         friction.stiffness = stiffness;
         wheel.sidewaysFriction = friction;
     }
-
+    */
 
 }

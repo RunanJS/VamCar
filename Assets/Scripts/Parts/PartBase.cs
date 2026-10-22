@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public abstract class PartBase : MonoBehaviour
 {
     public float timer;

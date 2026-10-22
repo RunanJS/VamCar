@@ -9,6 +9,7 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private TMP_Text amountText;
     [SerializeField] private Button button;
     [SerializeField] private Color nullColor = new Color(1f, 1f, 1f, 0.2f);
+    [SerializeField] private bool clickable;
 
     private ItemSlot slot;
 
@@ -37,6 +38,7 @@ public class ItemSlotUI : MonoBehaviour
 
     public void SetClickEvent(Action action)
     {
+        if (!clickable) return;
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => action());
     }

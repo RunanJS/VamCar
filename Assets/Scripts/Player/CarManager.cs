@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,11 +6,15 @@ public class CarManager : InventoryUI
 {
     public static CarManager Inst;
 
+    [Header("차")]
+    public CarController carController;
+    public CarStat carStat;
+
     [Header("파츠가 붙는 위치")]
     [SerializeField] Transform[] slotPoint = new Transform[6];
 
     // 상하전후좌우
-    PartBase[] slot = new PartBase[6];
+    [SerializeField] PartBase[] slot = new PartBase[6];
     List<ISpeed> enginePowers = new List<ISpeed>();
 
     [Header("레벨 관련")]
@@ -20,6 +25,7 @@ public class CarManager : InventoryUI
     {
         get { return Mathf.RoundToInt(5 * Mathf.Pow(lv, 1.3f)); }
     }
+    public Status Stat => carStat.stat;
 
     public float EnginePower
     {
@@ -98,6 +104,21 @@ public class CarManager : InventoryUI
     {
         if (Inst == null) Inst = this;
         else Destroy(this);
+
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        for (int i = 0; i < slot.Length; i++)
+        {
+            if (slot[i] != null)
+            {
+                inventory.SetSlot(i, ItemData.GetItem(slot[i].name), 1);
+                Refresh();
+                OnSlotClickPlus(i);
+            }
+        }
     }
 
     private void Update()
@@ -112,27 +133,26 @@ public class CarManager : InventoryUI
                 part.SkillEffect();
             }
         }
+    }
 
-        /*
-        foreach (var item in updatedParts)
-        {
-            item.OnUpdate();
-        }
-        // 엔진에서 경험치 추출
-        foreach (var item in engines)
-        {
-            exp += item.Generate();
-            // 경험치 충족량에 다다르면
-            if(exp > RequiredExp)
-            {
-                LevelUp();
-            }
-        }*/
+    private void FixedUpdate()
+    {
+        if(carStat.IsDead) return;
+        carController.Move(Stat.speed * EnginePower);
     }
 
     private void LevelUp()
     {
         exp -= RequiredExp;
         lv++;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.TryGetComponent<ItemObject>(out ItemObject item)
+            && item.getable)
+        {
+            inventory.AddItem(item.GetItem());
+        }
     }
 }

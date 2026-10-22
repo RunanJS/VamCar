@@ -28,8 +28,9 @@ public class Poclain : WeaponBase
         for (int i = 0; i < count; i++)
         {
             if (buffer[i].TryGetComponent(out Unit unit))
-                unit.OnDamaged(power);
-            Debug.Log(buffer[i]);
+            {
+                unit.OnDamaged(Power);
+            }
         }
     }
 
@@ -41,14 +42,9 @@ public class Poclain : WeaponBase
         Gizmos.color = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, 1f);
         Gizmos.DrawWireSphere(HitPosition, radius);
     }
+
     public override void SkillEffect()
     {
-        Debug.Log("Âï±â!");
         DoAttack();
-        /*
-        foreach (var target in targets)
-        {
-            target.OnDamaged(power);
-        }*/
     }
 }

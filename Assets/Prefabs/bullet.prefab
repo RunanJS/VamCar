@@ -151,4 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: -1
   power: 0
-  target: {fileID: 0}
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64

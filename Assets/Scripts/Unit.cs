@@ -6,7 +6,7 @@ public class Unit : MonoBehaviour
     [SerializeField] protected float currentHp;
     [SerializeField] protected float maxHp;
     public Status stat;
-    protected bool isDead = false;
+    public bool IsDead { get; protected set; } = false;
     protected Rigidbody rb;
 
     protected virtual void Start()
@@ -17,8 +17,9 @@ public class Unit : MonoBehaviour
 
     public void OnDamaged(float damage)
     {
+        if (IsDead) return;
         currentHp -= damage;
-        if(isDead && currentHp <= 0)
+        if(currentHp <= 0)
         {
             DeadStart();
         }
@@ -26,7 +27,7 @@ public class Unit : MonoBehaviour
 
     public virtual void DeadStart()
     {
-        isDead = true;
+        IsDead = true;
         GetComponent<Collider>().enabled = false;
         Dead();
     }

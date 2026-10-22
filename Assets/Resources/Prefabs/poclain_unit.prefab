@@ -177,7 +177,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1182090078764489193}
-  - component: {fileID: 7913883127570627746}
   - component: {fileID: 5260901979232139426}
   m_Layer: 0
   m_Name: poclain_unit
@@ -204,27 +203,6 @@ Transform:
   - {fileID: 5156585837681422137}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7913883127570627746
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2293152025882715242}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.7, y: 1, z: 0.4}
-  m_Center: {x: 0, y: 0, z: 0.2}
 --- !u!114 &5260901979232139426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
-  power: 0
+  power: 100
   targets: []
   arm: {fileID: 0}
   hitPoint: {fileID: 5156585837681422137}

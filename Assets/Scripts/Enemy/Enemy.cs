@@ -3,10 +3,13 @@ using UnityEngine;
 public abstract class Enemy : Unit
 {
     public GameObject target;
+    [SerializeField] string dropItemId;
+    [SerializeField] float dropItemAmount;
 
     private void OnEnable()
     {
-        EnemyManager.Instance.Register(this);
+        if (EnemyManager.Instance != null)
+            EnemyManager.Instance.Register(this);
     }
 
     private void OnDisable()
@@ -22,7 +25,7 @@ public abstract class Enemy : Unit
 
         Vector3 dir = target.transform.position - transform.position;
         if (dir.sqrMagnitude < 0.0001f) return;   // 거리가 0이면 방향이 없음
-
+        dir.y = 0;
         Quaternion look = Quaternion.LookRotation(dir);
         transform.rotation = Quaternion.Slerp(transform.rotation, look, 
             7 * Time.deltaTime);

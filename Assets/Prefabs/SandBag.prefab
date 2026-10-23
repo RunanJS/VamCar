@@ -133,6 +133,8 @@ MonoBehaviour:
     critAtk: 0
     resistance: 0
   target: {fileID: 0}
+  dropItemId: wood
+  dropItemAmount: 1
 --- !u!54 &-5489488163225003182
 Rigidbody:
   m_ObjectHideFlags: 0

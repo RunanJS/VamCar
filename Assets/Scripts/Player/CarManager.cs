@@ -91,6 +91,7 @@ public class CarManager : InventoryUI
         if (inventory[index].IsEmpty || inventory[index].item.HasTag("part"))
         {
             SetPart(index, res);
+            Refresh();
         }
         else
         {
@@ -125,7 +126,7 @@ public class CarManager : InventoryUI
     {
         foreach (var part in slot)
         {
-            if(part == null) continue;
+            if (part == null) continue;
             if (part.IsActivated) part.timer += Time.deltaTime;
             if (part.timer > part.GetTime)
             {
@@ -137,7 +138,7 @@ public class CarManager : InventoryUI
 
     private void FixedUpdate()
     {
-        if(carStat.IsDead) return;
+        if (carStat.IsDead) return;
         carController.Move(Stat.speed * EnginePower);
     }
 
@@ -147,12 +148,14 @@ public class CarManager : InventoryUI
         lv++;
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
-        if(other.TryGetComponent<ItemObject>(out ItemObject item)
+        // æ∆¿Ã≈€ ∏‘±‚
+        if (other.TryGetComponent<ItemObject>(out ItemObject item)
             && item.getable)
         {
-            inventory.AddItem(item.GetItem());
+            if (UIManager.MainInventory.CanGetItem(item.GetItem))
+                UIManager.MainInventory.AddItem(item.UseItem());
         }
     }
 }

@@ -158,6 +158,7 @@ MonoBehaviour:
   timer: 0
   power: 100
   targets: []
+  catchers: []
   bulletSpeed: 7
   rapidSpeed: 3
   targetMask:

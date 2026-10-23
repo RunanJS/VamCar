@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
 
     void OnEnable() => InputManager.OnInventoryToggle += Toggle;
     void OnDisable() => InputManager.OnInventoryToggle -= Toggle;
+    public static Inventory MainInventory => Instance.inventorys[0];
 
     void Awake()
     {

@@ -275,3 +275,4 @@ MonoBehaviour:
   amountText: {fileID: 4396325622402011638}
   button: {fileID: 2581038273245395443}
   nullColor: {r: 1, g: 1, b: 1, a: 0.15686275}
+  clickable: 1

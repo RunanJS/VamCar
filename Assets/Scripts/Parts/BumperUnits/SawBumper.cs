@@ -3,17 +3,16 @@ using static UnityEngine.GraphicsBuffer;
 
 public class SawBumper : WeaponBase
 {
-    [SerializeField] GameObject[] obj;
+    [SerializeField] GameObject saw;
 
     public override float GetTime => Time.deltaTime;
 
     public override void SkillEffect()
     {
         float speed = 500 * Time.deltaTime;
-        obj[0].transform.Rotate(0, speed, 0);
-        obj[1].transform.Rotate(0, -speed, 0);
+        saw.transform.Rotate(0, speed, 0);
 
-        foreach (var target in targets)
+        foreach (var target in CatchAll())
         {
             target.OnDamaged(Power * Time.deltaTime);
         }

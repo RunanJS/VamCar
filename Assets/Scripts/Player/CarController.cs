@@ -5,12 +5,6 @@ using UnityEngine.InputSystem;
 
 public class CarController : MonoBehaviour
 {
-    [Header("¹ÙÄû")]
-    [SerializeField] WheelCollider wheelFL;
-    [SerializeField] WheelCollider wheelFR;
-    [SerializeField] WheelCollider wheelRL;
-    [SerializeField] WheelCollider wheelRR;
-
     Rigidbody rb;
 
     public bool IsBrake => InputManager.Brake;

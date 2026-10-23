@@ -113,6 +113,29 @@ public class Inventory : IEnumerable<ItemSlot>
         return count;
     }
 
+    // 조금이라도 받을 공간이 있는지
+    
+    public bool CanGetItem(ItemSlot slot)
+    {
+        return CanGetItem(slot.id, slot.amount);
+    }
+    
+    public bool CanGetItem(string id, int _amount)
+    {
+        // 아이템 수가 0개면 그냥 패스
+        if (_amount <= 0) return true;
+
+        foreach (var _item in slots)
+        {
+            // 비어있거나 여유공간이 있는 같은 아이템이 있을 경우
+            if (_item.IsEmpty || (_item.item.id.Equals(id) && !_item.IsFull))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 비지정 슬롯에 아이템 획득
     public int AddItem(ItemSlot _item)
     {
@@ -152,7 +175,12 @@ public class Inventory : IEnumerable<ItemSlot>
         }
 
         // 슬롯 없으면 그냥 받은만큼 돌려줌
-        if (slot == null) return _amount;
+        if (slot == null)
+        {
+            ItemData.DropItem(CarManager.Inst.transform.position,
+                id, _amount);
+            return _amount;
+        }
 
         // 합친게
         int add = slot.amount + _amount;
@@ -168,6 +196,7 @@ public class Inventory : IEnumerable<ItemSlot>
         {
             // 꽉 안차면 그냥 끝
             slot.amount = add;
+            Debug.Log(id);
             NotifyChanged();
             return 0;
         }
@@ -521,7 +550,6 @@ public class Inventory : IEnumerable<ItemSlot>
             if (!lastSlot.IsEmpty)
             {
                 AddItem(lastSlot);
-                // 추후 DropItem으로 남는거 땅에 뱉게 만듦
             }
         }
     }

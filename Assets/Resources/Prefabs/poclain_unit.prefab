@@ -217,15 +217,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   power: 100
-  targets: []
+  catchers:
+  - hitPoint: {fileID: 5156585837681422137}
+    offset: {x: 0, y: 0, z: 0}
+    radius: 1
+    targetLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    gizmoColor: {r: 1, g: 0, b: 0, a: 0.49411765}
   arm: {fileID: 0}
-  hitPoint: {fileID: 5156585837681422137}
-  offset: {x: 0, y: 0, z: 0}
-  radius: 1
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  gizmoColor: {r: 1, g: 0, b: 0, a: 0.4}
 --- !u!1 &3203353381192842284
 GameObject:
   m_ObjectHideFlags: 0

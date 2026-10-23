@@ -4,7 +4,7 @@ public abstract class Enemy : Unit
 {
     public GameObject target;
     [SerializeField] string dropItemId;
-    [SerializeField] float dropItemAmount;
+    [SerializeField] int dropItemAmount;
 
     private void OnEnable()
     {
@@ -36,5 +36,11 @@ public abstract class Enemy : Unit
     void Update()
     {
         if (MoveRequirement) Move();
+    }
+
+    public override void DeadStart()
+    {
+        ItemData.DropItem(transform.position, dropItemId, dropItemAmount);
+        base.DeadStart();
     }
 }

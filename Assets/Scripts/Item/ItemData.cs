@@ -5,24 +5,33 @@ using Newtonsoft.Json;
 public class ItemData : MonoBehaviour
 {
     public static ItemData inst;
+    [SerializeField] ItemObject itemObject;
     Dictionary<string, Item> items = new Dictionary<string, Item>();
     Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
     Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
 
     public static Item GetItem(string _id)
     {
+        if (!inst.items.ContainsKey(_id)) return inst.items["scrap"];
         Item res = inst.items[_id];
         return res;
     }
 
     public static Sprite GetSprite(string _id)
     {
+        if (!inst.items.ContainsKey(_id)) return inst.sprites["scrap"];
         return inst.sprites[_id];
     }
 
     public static GameObject GetPrefab(string _id)
     {
         return inst.prefabs[_id];
+    }
+
+    public static void DropItem(Vector3 pos, string id, int amount)
+    {
+        if (!inst.items.ContainsKey(id) || amount <= 0) return;
+        Instantiate(inst.itemObject, pos, Quaternion.identity).SetItem(id, amount);
     }
 
     void Awake()

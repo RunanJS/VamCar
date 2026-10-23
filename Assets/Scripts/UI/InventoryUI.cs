@@ -21,13 +21,6 @@ public class InventoryUI : MonoBehaviour
             inventory = new Inventory(size);
             slots = new List<ItemSlotUI>(size);
             UIManager.Register(inventory);
-            SetInventory(inventory);
-            // 인벤칸 소환
-            /*for (int i = 0; i < size; i++)
-            {
-                slots.Add(Instantiate(slotPrefab, layout.transform
-                    ).GetComponent<ItemSlotUI>());
-            }*/
         }
         else
         {
@@ -35,6 +28,9 @@ public class InventoryUI : MonoBehaviour
             size = slots.Count;
             inventory = new Inventory(size);
         }
+
+        // 이 인벤토리를 시작인벤토리로 지정
+        SetInventory(inventory);
 
         for (int i = 0; i < slots.Count; i++)
         {
@@ -53,6 +49,7 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
+            if (!inventory[i].IsEmpty) Debug.Log(inventory[i].id);
             slots[i].SetSlot(inventory[i]); 
         }
     }

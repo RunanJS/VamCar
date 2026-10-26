@@ -64,9 +64,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public static void SetStorage(int i)
+    public static void SetStorageSize(int i)
     {
-        Instance.inventoryUI.SetSlotCount(Instance.inventoryUI.size + i);
+        MainInventory.Resize(MainInventory.Length + i);
     }
 
     public void SelectInventory(Inventory inven)

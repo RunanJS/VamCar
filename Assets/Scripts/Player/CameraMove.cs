@@ -16,7 +16,7 @@ public class CameraMove : MonoBehaviour
         pitch = transform.eulerAngles.x;
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (target == null) return;
 

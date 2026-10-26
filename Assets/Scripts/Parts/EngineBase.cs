@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public abstract class EngineBase : PartBase
+public abstract class EngineBase : PartBase, ISpeed
 {
     public float generateAmount;
     public float generateTime;
-    [SerializeField] private float enginePower;
+    [SerializeField] protected float enginePower;
 
     protected float generateValue = 1;
     protected bool isFuelOn = false;
@@ -40,31 +40,6 @@ public abstract class EngineBase : PartBase
             else 
                 return 0;
         }
-    }
-
-    public float Generate()
-    {
-        if (isFuelOn)
-        {
-            if (timer < 0)
-            {
-                isFuelOn = false;
-                return generateAmount;
-            }
-            else
-            {
-                timer -= Time.deltaTime;
-            }
-        }
-        else
-        {
-            if (GetRequired)
-            {
-                isFuelOn = true;
-                timer = generateTime;
-            }
-        }
-        return 0;
     }
 
     public override void SkillEffect()

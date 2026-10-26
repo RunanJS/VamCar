@@ -57,6 +57,13 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
     gizmoColor: {r: 1, g: 0, b: 0, a: 0.65882355}
+  - hitPoint: {fileID: 0}
+    offset: {x: 0, y: 0, z: 0.905}
+    radius: 0.78
+    targetLayer:
+      serializedVersion: 2
+      m_Bits: 64
+    gizmoColor: {r: 0, g: 0.95783186, b: 1, a: 0.65882355}
   saw: {fileID: 6195446385832420212}
 --- !u!65 &5539169167596359355
 BoxCollider:

@@ -5,17 +5,29 @@ using UnityEngine;
 public abstract class WeaponBase : PartBase
 {
     public float power = 100;
+    public int maxCatchCount;
     public List<TargetCatcher> catchers;// = new List<TargetCatcher>();
 
     public float Power => CarManager.Inst.Stat.atk * power / 100;
 
-    // 모든 catcher의 범위 안 대상을 중복 없이 반환
-    public List<Unit> CatchAll()
+    // 모든 catcher의 범위 안 대상을 중복 없이 반환 (maxCount: 최대 인원, 0 이하면 제한 없음)
+    public List<Unit> CatchAll(int maxCount = 0)
     {
         var res = new HashSet<Unit>();
         foreach (var c in catchers)
             res.UnionWith(c.Catch(transform));
-        return new List<Unit>(res);
+
+        var list = new List<Unit>(res);
+        if (maxCount > 0 && list.Count > maxCount)
+        {
+            // 무기에서 가까운 순으로 정렬 후 n명만 남김
+            Vector3 pos = transform.position;
+            list.Sort((a, b) =>
+                (a.transform.position - pos).sqrMagnitude
+                .CompareTo((b.transform.position - pos).sqrMagnitude));
+            list.RemoveRange(maxCount, list.Count - maxCount);
+        }
+        return list;
     }
 
     // 씬 뷰 미리보기 (재생 전에도 표시)

@@ -21,6 +21,10 @@ public class CarManager : InventoryUI
     public float exp;
     public int lv;
     //[SerializeField] AnimationCurve expCurve;
+
+    [Header("업그레이드 관련")]
+    UpgradeManager upgradeManager;
+
     public float RequiredExp
     {
         get { return Mathf.RoundToInt(5 * Mathf.Pow(lv, 1.3f)); }
@@ -50,7 +54,7 @@ public class CarManager : InventoryUI
         {
             // 창고 등록해제
             if (slot[index] is StorageBase removeStorage)
-                UIManager.SetStorage(-removeStorage.size);
+                UIManager.SetStorageSize(-removeStorage.size);
 
             // 인벤 쓰는 애면 등록 해제
             if (slot[index] is IConnecter connectRemoved)
@@ -72,7 +76,7 @@ public class CarManager : InventoryUI
 
             // 창고 등록
             if (slot[index] is StorageBase addStorage)
-                UIManager.SetStorage(addStorage.size);
+                UIManager.SetStorageSize(addStorage.size);
 
             // 인벤 쓰는 애면 등록
             if (slot[index] is IConnecter connecter)
@@ -146,6 +150,7 @@ public class CarManager : InventoryUI
     {
         exp -= RequiredExp;
         lv++;
+        upgradeManager.UpgradeStart();
     }
 
     public void OnTriggerStay(Collider other)

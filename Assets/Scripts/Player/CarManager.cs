@@ -13,22 +13,39 @@ public class CarManager : InventoryUI
     [Header("파츠가 붙는 위치")]
     [SerializeField] Transform[] slotPoint = new Transform[6];
 
-    // 상하전후좌우
+    [Header("부품 슬롯")]
     [SerializeField] PartBase[] slot = new PartBase[6];
     List<ISpeed> enginePowers = new List<ISpeed>();
+    public IReadOnlyList<PartBase> Parts { get; }
+    public int GetEmptySlot()
+    {
+        int res = 0;
+        foreach (var item in slot)
+        {
+            if (item == null) res++;
+        }
+        return res;
+    }
+    public bool HasPart(string id)
+    {
+        foreach (var item in slot)
+        {
+            if (item.name == id) return true;
+        }
+        return false;
+    }
 
     [Header("레벨 관련")]
     public float exp;
     public int lv;
     //[SerializeField] AnimationCurve expCurve;
+    public float RequiredExp => Mathf.RoundToInt(5 * Mathf.Pow(lv, 1.3f));
 
     [Header("업그레이드 관련")]
     UpgradeManager upgradeManager;
 
-    public float RequiredExp
-    {
-        get { return Mathf.RoundToInt(5 * Mathf.Pow(lv, 1.3f)); }
-    }
+
+    // 스탯
     public Status Stat => carStat.stat;
 
     public float EnginePower
@@ -73,6 +90,8 @@ public class CarManager : InventoryUI
             // 장착
             slot[index] = Instantiate(ItemData.GetPrefab(partId), slotPoint[index]
                 ).GetComponent<PartBase>();
+            // 이름 설정
+            slot[index].name = partId;
 
             // 창고 등록
             if (slot[index] is StorageBase addStorage)
@@ -144,6 +163,12 @@ public class CarManager : InventoryUI
     {
         if (carStat.IsDead) return;
         carController.Move(Stat.speed * EnginePower);
+    }
+
+    public void AddExp(float _exp)
+    {
+        exp += _exp;
+        if (exp > RequiredExp) LevelUp();
     }
 
     private void LevelUp()

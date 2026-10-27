@@ -8,7 +8,11 @@ public class ItemData : MonoBehaviour
     [SerializeField] ItemObject itemObject;
     Dictionary<string, Item> items = new Dictionary<string, Item>();
     Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
-    Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
+    Dictionary<string, PartBase> prefabs = new Dictionary<string, PartBase>();
+
+    public static IReadOnlyCollection<Item> GetItemAll => inst.items.Values;
+    public static IReadOnlyCollection<Sprite> GetSpriteAll => inst.sprites.Values;
+    public static IReadOnlyCollection<PartBase> GetPrefabAll => inst.prefabs.Values;
 
     public static Item GetItem(string _id)
     {
@@ -23,7 +27,7 @@ public class ItemData : MonoBehaviour
         return inst.sprites[_id];
     }
 
-    public static GameObject GetPrefab(string _id)
+    public static PartBase GetPrefab(string _id)
     {
         return inst.prefabs[_id];
     }
@@ -72,7 +76,7 @@ public class ItemData : MonoBehaviour
             // 부품 태그가 있으면 프리팹 저장
             if (item.HasTag("part"))
             {
-                GameObject prefab = Resources.Load<GameObject>("Prefabs/" + item.id);
+                PartBase prefab = Resources.Load<PartBase>("Prefabs/" + item.id);
                 if (prefab == null) Debug.LogWarning($"프리팹 없음: {item.id}");
                 prefabs.Add(item.id, prefab);
             }

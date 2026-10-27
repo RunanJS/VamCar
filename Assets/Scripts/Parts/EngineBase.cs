@@ -44,7 +44,7 @@ public abstract class EngineBase : PartBase, ISpeed
 
     public override void SkillEffect()
     {
-        CarManager.Inst.exp += generateAmount;
+        CarManager.Inst.AddExp(generateAmount);
         isFuelOn = false;
     }
 }

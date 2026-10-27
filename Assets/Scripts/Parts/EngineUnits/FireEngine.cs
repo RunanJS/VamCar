@@ -26,4 +26,9 @@ public class FireEngine : EngineBase, IConnecter
     public override void SkillEffect()
     {
     }
+
+    public override UpgradeText Upgrade()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -14,7 +14,8 @@ public abstract class PartBase : MonoBehaviour
     public abstract void SkillEffect();
 
     // 설명문을 반환
-    public abstract UpgradeText Upgrade();
+    public abstract void Upgrade();
+    public abstract UpgradeText GetExplain();
 }
 
 public class SkillContext

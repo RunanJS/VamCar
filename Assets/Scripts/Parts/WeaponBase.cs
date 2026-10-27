@@ -30,6 +30,14 @@ public abstract class WeaponBase : PartBase
         return list;
     }
 
+    public void Resize(float value)
+    {
+        foreach (var catcher in catchers)
+        {
+            catcher.Resize(value);
+        }
+    }
+
     // 씬 뷰 미리보기 (재생 전에도 표시)
     protected virtual void OnDrawGizmos()
     {
@@ -48,6 +56,8 @@ public class TargetCatcher
     [SerializeField] float radius = 1f;
     [SerializeField] LayerMask targetLayer;
 
+    public Vector3 Position(Transform self) => GetPos(self);   // 중심 위치 공개
+
     [Header("미리보기")]
     [SerializeField] Color gizmoColor = new Color(1f, 0f, 0f, 0.4f);
 
@@ -60,9 +70,32 @@ public class TargetCatcher
         return origin.TransformPoint(offset);
     }
 
+    public void Resize(float value)
+    {
+        float grown = value * radius - radius;
+        radius *= value;
+        hitPoint.localScale *= value;
+
+        // 원점 기준, 현재 위치 방향으로 증가분만큼 이동
+        Vector3 dir = hitPoint.localPosition.normalized;
+        if (dir == Vector3.zero) dir = Vector3.forward;   // 원점에 있으면 앞쪽으로
+        hitPoint.localPosition += dir * grown;
+    }
+
     public List<Unit> Catch(Transform self)
     {
         int count = Physics.OverlapSphereNonAlloc(GetPos(self), radius, buffer, targetLayer);
+
+        var res = new List<Unit>();
+        for (int i = 0; i < count; i++)
+            if (buffer[i].TryGetComponent(out Unit unit))
+                res.Add(unit);
+        return res;
+    }
+
+    public List<Unit> Catch(Transform self, float radiusScale)
+    {
+        int count = Physics.OverlapSphereNonAlloc(GetPos(self), radius * radiusScale, buffer, targetLayer);
 
         var res = new List<Unit>();
         for (int i = 0; i < count; i++)

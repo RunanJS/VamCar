@@ -31,4 +31,9 @@ public class BoostAddOn : AddOnBase, ISpeed, IUpdated
     {
         throw new System.NotImplementedException();
     }
+
+    public override UpgradeText Upgrade()
+    {
+        throw new System.NotImplementedException();
+    }
 }

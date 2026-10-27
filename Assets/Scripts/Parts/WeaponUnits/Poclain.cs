@@ -13,4 +13,36 @@ public class Poclain : WeaponBase
             enemy.OnDamaged(Power);
         }
     }
+
+    public override UpgradeText Upgrade()
+    {
+        UpgradeText res = new UpgradeText();
+        switch (grade)
+        {
+            case 1:
+                res = new UpgradeText("",
+                    "");
+                break;
+            case 2:
+                res = new UpgradeText("",
+                    "");
+                break;
+            case 3:
+                res = new UpgradeText("",
+                    "");
+                break;
+            case 4:
+                res = new UpgradeText("",
+                    "");
+                break;
+            case 5:
+                res = new UpgradeText("",
+                    "");
+                break;
+            default:
+                break;
+        }
+
+        return res;
+    }
 }

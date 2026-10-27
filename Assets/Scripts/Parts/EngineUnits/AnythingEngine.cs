@@ -29,7 +29,7 @@ public class AnythingEngine : EngineBase, IConnecter
             case 1:
                 generateAmount *= 1.5f;
                 res = new UpgradeText("효율 상승",
-                    "생성하는 에너지의 양이 1.5배 증가합니다.");
+                    "생성하는 에너지의 양이 1.5배로 증가합니다.");
                 break;
             case 2:
                 generateTime /= 2;
@@ -44,12 +44,12 @@ public class AnythingEngine : EngineBase, IConnecter
             case 4:
                 enginePower += 0.2f;
                 res = new UpgradeText("속도 상승",
-                    "작동하는동안 이동속도가 0.2배 상승합니다.");
+                    "작동중 이동속도가 0.2배만큼 상승합니다.");
                 break;
             case 5:
                 generateAmount = 4;
                 res = new UpgradeText("효율 상승",
-                    "생성하는 에너지의 양이 1.5배 증가합니다.");
+                    "생성하는 에너지의 양이 2배로 증가합니다.");
                 break;
             default:
                 break;

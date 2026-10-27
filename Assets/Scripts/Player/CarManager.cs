@@ -16,7 +16,7 @@ public class CarManager : InventoryUI
     [Header("부품 슬롯")]
     [SerializeField] PartBase[] slot = new PartBase[6];
     List<ISpeed> enginePowers = new List<ISpeed>();
-    public IReadOnlyList<PartBase> Parts { get; }
+    public IReadOnlyList<PartBase> Parts => slot;
     public int GetEmptySlot()
     {
         int res = 0;
@@ -30,6 +30,7 @@ public class CarManager : InventoryUI
     {
         foreach (var item in slot)
         {
+            if (item == null) continue;
             if (item.name == id) return true;
         }
         return false;
@@ -42,7 +43,7 @@ public class CarManager : InventoryUI
     public float RequiredExp => Mathf.RoundToInt(5 * Mathf.Pow(lv, 1.3f));
 
     [Header("업그레이드 관련")]
-    UpgradeManager upgradeManager;
+    [SerializeField] UpgradeManager upgradeManager;
 
 
     // 스탯
@@ -165,10 +166,13 @@ public class CarManager : InventoryUI
         carController.Move(Stat.speed * EnginePower);
     }
 
+    public event Action<float, float, int> OnExpChanged;
+
     public void AddExp(float _exp)
     {
         exp += _exp;
         if (exp > RequiredExp) LevelUp();
+        OnExpChanged?.Invoke(exp, RequiredExp, lv);
     }
 
     private void LevelUp()

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -100,7 +99,7 @@ public class UpgradeManager : MonoBehaviour
                 {
                     title = item.itemName,
                     desc = "»õ ºÎÇ°",
-                    apply = () => car.SetPart(slot, id)
+                    apply = () => UIManager.MainInventory.AddItem(id)
                 });
             }
         }

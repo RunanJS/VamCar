@@ -86,8 +86,8 @@ public class SawBumper : WeaponBase
                     "공격의 위력이 160%로 증가합니다.");
                 break;
             case 4:
-                res = new UpgradeText("",
-                    "");
+                res = new UpgradeText("범위 증가 / 인력",
+                    "공격 범위가 1.7배로 증가하고 톱날이 적을 끌어당기게 됩니다.");
                 break;
             default:
                 break;

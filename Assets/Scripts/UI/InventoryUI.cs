@@ -49,7 +49,7 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            if (!inventory[i].IsEmpty) Debug.Log(inventory[i].id);
+            //if (!inventory[i].IsEmpty) Debug.Log(inventory[i].id);
             slots[i].SetSlot(inventory[i]); 
         }
     }

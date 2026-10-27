@@ -40,6 +40,7 @@ public abstract class Enemy : Unit
 
     public override void DeadStart()
     {
+        // Debug.Log(dropItemId + " ¶³±¸±â " + dropItemAmount);
         ItemData.DropItem(transform.position, dropItemId, dropItemAmount);
         base.DeadStart();
     }

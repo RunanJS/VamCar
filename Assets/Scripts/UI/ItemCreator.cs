@@ -7,6 +7,7 @@ public class ItemCreator : MonoBehaviour
 
     public void CreateItem(string id)
     {
+        if (ItemData.GetItem(id) == ItemData.GetItem("scrap")) return;
         target.inventory.AddItem(id);
         target.Refresh();
     }

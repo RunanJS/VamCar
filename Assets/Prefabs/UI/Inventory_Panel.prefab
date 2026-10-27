@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1558061473173025448}
   - component: {fileID: 2472432258588939595}
   - component: {fileID: 5178060409282061984}
-  - component: {fileID: 2636433420589593774}
   m_Layer: 5
   m_Name: Inventory_Panel
   m_TagString: Untagged
@@ -77,22 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2636433420589593774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6362344318019542397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75da66fe2bef8824cb971ef69bcd2957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slots: []
-  slotPrefab: {fileID: 4889739930210724914, guid: 12f714b2a21b6074988765683f97cc4b, type: 3}
-  layout: {fileID: 7105367995089210398}
-  size: 32
 --- !u!1 &7105367995089210398
 GameObject:
   m_ObjectHideFlags: 0

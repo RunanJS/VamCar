@@ -23,13 +23,15 @@ public class ItemObject : MonoBehaviour
 
     public ItemSlot UseItem()
     {
+        dropCool = 2f;
         Destroy(gameObject);
+        //Debug.Log(amount + "°³ ¸Ô´Ù");
         return new ItemSlot(id, amount);
     }
 
     public void SetItem(string id, int amount)
     {
-        Debug.Log("¼Â " + id + ", " + amount);
+        //Debug.Log("¼Â " + id + ", " + amount);
         this.id = id;
         this.amount = amount;
         Refresh();
@@ -37,7 +39,7 @@ public class ItemObject : MonoBehaviour
 
     public void Refresh()
     {
-        Debug.Log(ItemData.GetItem(id).id);
+        //Debug.Log(ItemData.GetItem(id).id);
         sprite.sprite = ItemData.GetSprite(id);
         if(amount <= 0)
         {

@@ -1,16 +1,22 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] InventoryUI inventoryUI;
-    [SerializeField] Canvas canvas;
     public static UIManager Instance;
 
+    [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] PopupUI invenPopUi;
+
     List<Inventory> inventorys = new List<Inventory>();
+
+    [Header("exp바")]
+    [SerializeField] Image expBar;
+    [SerializeField] TextMeshProUGUI levelText;
 
     [Header("버튼")]
     [SerializeField] Transform btnLayout;
@@ -24,12 +30,30 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        canvas.enabled = false;
+    }
+
+    private void Start()
+    {
+        var car = CarManager.Inst;
+        car.OnExpChanged += RefreshExp;
+        RefreshExp(car.exp, car.RequiredExp, car.lv);
+    }
+
+    private void OnDestroy()
+    {
+        if (CarManager.Inst != null)
+            CarManager.Inst.OnExpChanged -= RefreshExp;
+    }
+
+    void RefreshExp(float exp, float need, int level)
+    {
+        expBar.fillAmount = exp / need;
+        levelText.text = $"Lv.{level}";
     }
 
     void Toggle()
     {
-        canvas.enabled = !canvas.enabled;
+        invenPopUi.Toggle();
     }
 
     // 일단 CarManager에서 등록해줌

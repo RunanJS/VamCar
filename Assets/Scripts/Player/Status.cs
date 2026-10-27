@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public struct Status
+public class Status
 {
     public float atk;
     public float speed;

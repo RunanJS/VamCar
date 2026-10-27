@@ -196,7 +196,7 @@ public class Inventory : IEnumerable<ItemSlot>
         {
             // 꽉 안차면 그냥 끝
             slot.amount = add;
-            Debug.Log(id);
+            //Debug.Log(id);
             NotifyChanged();
             return 0;
         }

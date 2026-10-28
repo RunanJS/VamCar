@@ -33,7 +33,7 @@ public class BoostAddOn : AddOnBase, ISpeed, IUpdated
     }
     public override void Upgrade()
     {
-        switch (grade)
+        switch (++grade)
         {
             case 1:
                 break;

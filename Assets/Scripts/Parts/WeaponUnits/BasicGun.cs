@@ -23,7 +23,7 @@ public class BasicGun : WeaponBase
 
     public override void Upgrade()
     {
-        switch (grade)
+        switch (++grade)
         {
             case 1:
                 rapidSpeed *= 1.3f;

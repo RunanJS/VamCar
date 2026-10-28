@@ -25,12 +25,35 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float critAtkUp = 0.1f;
     [SerializeField] float resistanceUp = 0.05f;
 
+    [Header("종류별 가중치 (비율)")]
+    [SerializeField] float partUpWeight = 50f;
+    [SerializeField] float newPartWeight = 20f;
+    [SerializeField] float statWeight = 30f;
+
     public List<UpgradeOption> current = new List<UpgradeOption>();
 
     public void UpgradeStart()
     {
-        var pool = BuildPool(CarManager.Inst);
-        Shuffle(pool);
+        var partUp = new List<UpgradeOption>();
+        var newPart = new List<UpgradeOption>();
+        var stat = new List<UpgradeOption>();
+        BuildPools(CarManager.Inst, partUp, newPart, stat);
+
+        var groups = new List<(List<UpgradeOption> list, float weight)>
+        {
+            (partUp, partUpWeight),
+            (newPart, newPartWeight),
+            (stat, statWeight),
+        };
+
+        // 버튼 수만큼 가중치로 뽑기
+        var pool = new List<UpgradeOption>();
+        for (int i = 0; i < btns.Length; i++)
+        {
+            var opt = PickWeighted(groups);
+            if (opt == null) break;
+            pool.Add(opt);
+        }
 
         current.Clear();
         for (int i = 0; i < btns.Length; i++)
@@ -66,18 +89,17 @@ public class UpgradeManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    List<UpgradeOption> BuildPool(CarManager car)
+    void BuildPools(CarManager car,
+    List<UpgradeOption> partUp, List<UpgradeOption> newPart, List<UpgradeOption> stat)
     {
-        var pool = new List<UpgradeOption>();
-
-        // 1. 가진 부품 강화 (적용 내용은 Upgrade()가 반환)
+        // 1. 가진 부품 강화
         foreach (var part in car.Parts)
         {
             if (part == null || part.grade >= part.MaxGrade) continue;
 
             var p = part;
             UpgradeText text = p.GetExplain();
-            pool.Add(new UpgradeOption
+            partUp.Add(new UpgradeOption
             {
                 title = text.title,
                 desc = text.line,
@@ -86,16 +108,14 @@ public class UpgradeManager : MonoBehaviour
         }
 
         // 2. 새 부품 (빈 슬롯이 있을 때만)
-        int slot = car.GetEmptySlot();
-        if (slot >= 0)
+        if (car.GetEmptySlot() >= 0)
         {
             foreach (var item in ItemData.GetItemAll)
             {
                 if (!item.HasTag("part") || car.HasPart(item.id)) continue;
 
                 string id = item.id;
-                string name = item.itemName;
-                pool.Add(new UpgradeOption
+                newPart.Add(new UpgradeOption
                 {
                     title = item.itemName,
                     desc = "새 부품",
@@ -105,13 +125,11 @@ public class UpgradeManager : MonoBehaviour
         }
 
         // 3. 스테이터스
-        pool.Add(StatOption(car, StatType.Atk, "공격력", atkUp));
-        pool.Add(StatOption(car, StatType.Speed, "이동 속도", speedUp));
-        pool.Add(StatOption(car, StatType.CritChance, "치명타 확률", critChanceUp));
-        pool.Add(StatOption(car, StatType.CritAtk, "치명타 피해", critAtkUp));
-        pool.Add(StatOption(car, StatType.Resistance, "저항", resistanceUp));
-
-        return pool;
+        stat.Add(StatOption(car, StatType.Atk, "공격력", atkUp));
+        stat.Add(StatOption(car, StatType.Speed, "이동 속도", speedUp));
+        stat.Add(StatOption(car, StatType.CritChance, "치명타 확률", critChanceUp));
+        stat.Add(StatOption(car, StatType.CritAtk, "치명타 피해", critAtkUp));
+        stat.Add(StatOption(car, StatType.Resistance, "저항", resistanceUp));
     }
 
     UpgradeOption StatOption(CarManager car, StatType type, string name, float amount)
@@ -135,12 +153,26 @@ public class UpgradeManager : MonoBehaviour
         };
     }
 
-    static void Shuffle<T>(List<T> list)
+    static UpgradeOption PickWeighted(List<(List<UpgradeOption> list, float weight)> groups)
     {
-        for (int i = list.Count - 1; i > 0; i--)
+        float total = 0f;
+        foreach (var g in groups)
+            if (g.list.Count > 0) total += g.weight;
+
+        if (total <= 0f) return null;
+
+        float r = UnityEngine.Random.value * total;
+        foreach (var g in groups)
         {
-            int j = UnityEngine.Random.Range(0, i + 1);
-            (list[i], list[j]) = (list[j], list[i]);
+            if (g.list.Count == 0) continue;
+            r -= g.weight;
+            if (r > 0f) continue;
+
+            int idx = UnityEngine.Random.Range(0, g.list.Count);
+            var opt = g.list[idx];
+            g.list.RemoveAt(idx);
+            return opt;
         }
+        return null;
     }
 }

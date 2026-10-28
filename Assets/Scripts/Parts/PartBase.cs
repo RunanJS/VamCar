@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class PartBase : MonoBehaviour
 {
     public float timer;
-    public int grade = 0;
+    public int grade = 5;
     public int MaxGrade;
 
     public bool Upgradeable => grade < MaxGrade;

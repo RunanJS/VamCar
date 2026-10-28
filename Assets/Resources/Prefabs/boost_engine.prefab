@@ -185,6 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  grade: 0
+  MaxGrade: 0
   generateAmount: 4
   generateTime: 2
   enginePower: 1
@@ -287,6 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  grade: 0
+  MaxGrade: 0
   generateAmount: 4
   generateTime: 2
   enginePower: 1
@@ -389,6 +395,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  grade: 0
+  MaxGrade: 0
   generateAmount: 4
   generateTime: 2
   enginePower: 1
@@ -442,9 +451,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15daeb87b3d7db842915efbc946d307d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generateAmount: 0
-  generateTime: 0
-  enginePower: 10
+  timer: 0
+  grade: 0
+  MaxGrade: 5
+  driftGage: 0
+  driftActiveValue: 3
+  driftPower: 0
 --- !u!65 &6637781170813838380
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -565,6 +577,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  grade: 0
+  MaxGrade: 0
   generateAmount: 4
   generateTime: 2
   enginePower: 1

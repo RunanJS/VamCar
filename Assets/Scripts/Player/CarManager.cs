@@ -40,7 +40,7 @@ public class CarManager : InventoryUI
     public float exp;
     public int lv;
     //[SerializeField] AnimationCurve expCurve;
-    public float RequiredExp => Mathf.RoundToInt(5 * Mathf.Pow(lv, 1.3f));
+    public float RequiredExp => Mathf.RoundToInt(5 * Mathf.Pow(lv, 1.1f));
 
     [Header("업그레이드 관련")]
     [SerializeField] UpgradeManager upgradeManager;
@@ -177,7 +177,7 @@ public class CarManager : InventoryUI
 
     private void LevelUp()
     {
-        exp -= RequiredExp;
+        AddExp(-RequiredExp);
         lv++;
         upgradeManager.UpgradeStart();
     }

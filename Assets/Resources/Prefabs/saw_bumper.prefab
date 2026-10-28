@@ -49,18 +49,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   grade: 0
-  MaxGrade: 0
+  MaxGrade: 5
   power: 100
   maxCatchCount: 0
   catchers:
   - hitPoint: {fileID: 7415077862981854257}
     offset: {x: 0, y: 0, z: 0}
-    radius: 0.6
+    radius: 0.8
     targetLayer:
       serializedVersion: 2
       m_Bits: 64
     gizmoColor: {r: 1, g: 0, b: 0, a: 0.65882355}
   saw: {fileID: 6195446385832420212}
+  pullSpeed: 1.5
 --- !u!65 &5539169167596359355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -109,8 +110,8 @@ Transform:
   m_GameObject: {fileID: 6195446385832420212}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: 0.725}
-  m_LocalScale: {x: 1, y: 0.093284, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.15}
+  m_LocalScale: {x: 1.4, y: 0.093284, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2128945504687907927}

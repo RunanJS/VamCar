@@ -54,6 +54,13 @@ public class UIManager : MonoBehaviour
     void Toggle()
     {
         invenPopUi.Toggle();
+        if(!invenPopUi.IsOpen) PlayerHand.inst.Back();
+    }
+
+    public void Close()
+    {
+        invenPopUi.Close();
+        if (!invenPopUi.IsOpen) PlayerHand.inst.Back();
     }
 
     // 일단 CarManager에서 등록해줌

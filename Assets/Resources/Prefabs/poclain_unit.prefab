@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  grade: 0
+  MaxGrade: 0
   generateAmount: 4
   generateTime: 2
   enginePower: 1
@@ -216,7 +218,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  grade: 0
+  MaxGrade: 5
   power: 100
+  maxCatchCount: 0
   catchers:
   - hitPoint: {fileID: 5156585837681422137}
     offset: {x: 0, y: 0, z: 0}
@@ -226,6 +231,7 @@ MonoBehaviour:
       m_Bits: 0
     gizmoColor: {r: 1, g: 0, b: 0, a: 0.49411765}
   arm: {fileID: 0}
+  atkCool: 5
 --- !u!1 &3203353381192842284
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +332,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  grade: 0
+  MaxGrade: 0
   generateAmount: 4
   generateTime: 2
   enginePower: 1
@@ -515,6 +523,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  grade: 0
+  MaxGrade: 0
   generateAmount: 4
   generateTime: 2
   enginePower: 1

@@ -24,7 +24,7 @@ public class FireEngine : EngineBase, IConnecter
 
     public override void Upgrade()
     {
-        switch (grade)
+        switch (++grade)
         {
             case 1:
                 generateAmount *= 1.5f;

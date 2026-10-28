@@ -41,7 +41,7 @@ public class SawBumper : WeaponBase
 
     public override void Upgrade()
     {
-        switch (grade)
+        switch (++grade)
         {
             case 1:
                 Resize(1.3f);

@@ -185,6 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  grade: 0
+  MaxGrade: 0
   generateAmount: 4
   generateTime: 2
   enginePower: 1
@@ -235,7 +238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fad704bbbf4cad4392ff9c9cce30aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generateAmount: 2
+  timer: 0
+  grade: 0
+  MaxGrade: 5
+  generateAmount: 4
   generateTime: 4
   enginePower: 1
 --- !u!65 &6637781170813838380

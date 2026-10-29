@@ -171,7 +171,7 @@ public class CarManager : InventoryUI
     public void AddExp(float _exp)
     {
         exp += _exp;
-        if (exp > RequiredExp) LevelUp();
+        if (exp >= RequiredExp) LevelUp();
         OnExpChanged?.Invoke(exp, RequiredExp, lv);
     }
 

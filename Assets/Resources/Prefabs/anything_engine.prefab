@@ -347,7 +347,7 @@ MonoBehaviour:
   timer: 0
   grade: 0
   MaxGrade: 5
-  generateAmount: 2
+  generateAmount: 20
   generateTime: 4
   enginePower: 1
 --- !u!65 &6637781170813838380

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum StatType { Atk, Speed, CritChance, CritAtk, Resistance }
+public enum StatType { Atk, Speed, CritChance, CritAtk, Resistance, Storage }
 
 public class UpgradeOption
 {
@@ -24,6 +24,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float critChanceUp = 0.05f;   // 확률 단위(0~1인지 0~100인지 맞추십시오)
     [SerializeField] float critAtkUp = 0.1f;
     [SerializeField] float resistanceUp = 0.05f;
+    [SerializeField] float StorageUp = 2f;
+
 
     [Header("종류별 가중치 (비율)")]
     [SerializeField] float partUpWeight = 50f;
@@ -130,6 +132,7 @@ public class UpgradeManager : MonoBehaviour
         stat.Add(StatOption(car, StatType.CritChance, "치명타 확률", critChanceUp));
         stat.Add(StatOption(car, StatType.CritAtk, "치명타 피해", critAtkUp));
         stat.Add(StatOption(car, StatType.Resistance, "저항", resistanceUp));
+        stat.Add(StatOption(car, StatType.Storage, "저장공간", StorageUp));
     }
 
     UpgradeOption StatOption(CarManager car, StatType type, string name, float amount)
@@ -148,6 +151,7 @@ public class UpgradeManager : MonoBehaviour
                     case StatType.CritChance: s.critChance += amount; break;
                     case StatType.CritAtk: s.critAtk += amount; break;
                     case StatType.Resistance: s.resistance += amount; break;
+                    case StatType.Storage: UIManager.SetStorageSize((int)amount); break;
                 }
             }
         };

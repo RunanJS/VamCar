@@ -1603,9 +1603,10 @@ MonoBehaviour:
   critChanceUp: 5
   critAtkUp: 5
   resistanceUp: 1
+  StorageUp: 2
   partUpWeight: 6
   newPartWeight: 4
-  statWeight: 1
+  statWeight: 10
 --- !u!224 &461155663 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7228627075024207899, guid: 12f714b2a21b6074988765683f97cc4b, type: 3}

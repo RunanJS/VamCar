@@ -79,6 +79,6 @@ public class PlayerHand : MonoBehaviour
 
     public void CreateItem(string id)
     {
-        Hand = new ItemSlot(ItemData.GetItem(id));
+        Hand = new ItemSlot(ItemData.Get<Item>(id));
     }
 }

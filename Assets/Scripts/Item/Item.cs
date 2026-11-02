@@ -1,14 +1,18 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
-public class Item
+[CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item")]
+public class Item : ScriptableObject
 {
     public string itemName;
     public string id;
+    public Sprite sprite;
     public int maxStack = 64;
     public HashSet<string> tags = new HashSet<string>();
     public Dictionary<string, float> stats = new Dictionary<string, float>();
 
+    /*
     public Item() { }
 
     public Item(string itemName, string id, int maxStack = 64,
@@ -32,6 +36,7 @@ public class Item
         tags = new HashSet<string>(_item.tags);
         stats = new Dictionary<string, float>(_item.stats);
     }
+    */
 
     // 태그가 있는지
     public bool HasTag(string tag) => tags.Contains(tag);

@@ -54,15 +54,10 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void OnSlotClick(int index)
+    public virtual void OnSlotClick(int index)
     {
         PlayerHand.Hand = inventory.PickUp(index, PlayerHand.Hand);
         Refresh();
-        OnSlotClickPlus(index);
-    }
-
-    public virtual void OnSlotClickPlus(int index)
-    {
     }
 
     public void SetSlotCount(int count)

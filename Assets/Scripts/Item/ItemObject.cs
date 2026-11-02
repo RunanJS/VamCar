@@ -40,7 +40,7 @@ public class ItemObject : MonoBehaviour
     public void Refresh()
     {
         //Debug.Log(ItemData.GetItem(id).id);
-        sprite.sprite = ItemData.GetSprite(id);
+        sprite.sprite = ItemData.Get<Item>(id).sprite;
         if(amount <= 0)
         {
             Destroy(gameObject);

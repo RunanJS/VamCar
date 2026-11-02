@@ -24,7 +24,7 @@ public class ItemSlot
 
     public ItemSlot(string _itemId, int _amount)
     {
-        item = ItemData.GetItem(_itemId);
+        item = ItemData.Get<Item>(_itemId);
         amount = _amount;
     }
 

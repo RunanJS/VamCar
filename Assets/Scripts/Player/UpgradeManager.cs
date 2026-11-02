@@ -80,6 +80,7 @@ public class UpgradeManager : MonoBehaviour
         Time.timeScale = 0f;
         upgradeUI.Open();
     }
+
     public void UpgradeComplete(int select)
     {
         if (select < 0 || select >= current.Count) return;
@@ -97,7 +98,8 @@ public class UpgradeManager : MonoBehaviour
         // 1. 가진 부품 강화
         foreach (var part in car.Parts)
         {
-            if (part == null || part.grade >= part.MaxGrade) continue;
+            if (part == null || 
+                part.grade >= part.MaxGrade) continue;
 
             var p = part;
             UpgradeText text = p.GetExplain();
@@ -112,9 +114,9 @@ public class UpgradeManager : MonoBehaviour
         // 2. 새 부품 (빈 슬롯이 있을 때만)
         if (car.GetEmptySlot() >= 0)
         {
-            foreach (var item in ItemData.GetItemAll)
+            foreach (var item in ItemData.GetAll<PartSO>())
             {
-                if (!item.HasTag("part") || car.HasPart(item.id)) continue;
+                if (    car.HasPart(item.id)) continue;
 
                 string id = item.id;
                 newPart.Add(new UpgradeOption

@@ -1,21 +1,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Collections;
+using System;
+using static UnityEditor.Progress;
+using NUnit.Framework.Interfaces;
 
 public class ItemData : MonoBehaviour
 {
     public static ItemData inst;
     [SerializeField] ItemObject itemObject;
     Dictionary<string, Item> items = new Dictionary<string, Item>();
-    Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
+    //Dictionary<string, Item> items = new Dictionary<string, Item>();
+    //Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
     Dictionary<string, PartBase> prefabs = new Dictionary<string, PartBase>();
 
-    public static IReadOnlyCollection<Item> GetItemAll => inst.items.Values;
-    public static IReadOnlyCollection<Sprite> GetSpriteAll => inst.sprites.Values;
-    public static IReadOnlyCollection<PartBase> GetPrefabAll => inst.prefabs.Values;
+    static readonly Dictionary<Type, IList> allCache = new Dictionary<Type, IList>();
 
+    //public static IReadOnlyCollection<Item> GetItemAll => inst.items.Values;
+    //public static IReadOnlyCollection<Sprite> GetSpriteAll => inst.sprites.Values;
+    //public static IReadOnlyCollection<PartBase> GetPrefabAll => inst.prefabs.Values;
+
+    public static IReadOnlyCollection<T> GetAll<T>() where T : Item
+    {
+        Type type = typeof(T);
+
+        // 이미 만들어 둔 목록이 있으면 재사용
+        if (allCache.TryGetValue(type, out IList cached))
+            return (List<T>)cached;
+
+        var list = new List<T>();
+        foreach (var so in inst.items.Values)
+            if (so is T t) list.Add(t);
+
+        allCache[type] = list;
+        return list;
+    }
+
+    public static T Get<T>(string id) where T : Item
+        => inst.items.TryGetValue(id, out var item) ? item as T : null;
+
+    /*
     public static Item GetItem(string _id)
     {
+        return Get<ItemSO>(_id).itemData;
+
         if (!inst.items.ContainsKey(_id)) return inst.items["scrap"];
         Item res = inst.items[_id];
         return res;
@@ -26,7 +55,7 @@ public class ItemData : MonoBehaviour
         if (!inst.items.ContainsKey(_id)) return inst.sprites["scrap"];
         return inst.sprites[_id];
     }
-
+    */
     public static PartBase GetPrefab(string _id)
     {
         return inst.prefabs[_id];
@@ -42,6 +71,17 @@ public class ItemData : MonoBehaviour
     {
         if (inst == null) inst = this;
 
+        foreach (var so in Resources.LoadAll<Item>("Items"))
+        {
+            if (items.ContainsKey(so.id))
+            {
+                Debug.LogWarning($"중복 id: {so.id}");
+                continue;
+            }
+            items.Add(so.id, so);
+        }
+
+        /*
         TextAsset json = Resources.Load<TextAsset>("Items");
         if (json == null)
         {
@@ -80,7 +120,7 @@ public class ItemData : MonoBehaviour
                 if (prefab == null) Debug.LogWarning($"프리팹 없음: {item.id}");
                 prefabs.Add(item.id, prefab);
             }
-        }
+        }*/
     }
 }
 

@@ -25,7 +25,7 @@ public class ItemSlotUI : MonoBehaviour
             return;
         }
 
-        icon.sprite = ItemData.GetSprite(slot.item.id);
+        icon.sprite = ItemData.Get<Item>(slot.item.id).sprite;
 
         Color color = icon.color;
         color.a = 1f;

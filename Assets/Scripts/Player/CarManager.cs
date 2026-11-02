@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class CarManager : InventoryUI
+public class CarManager : MonoBehaviour
 {
     public static CarManager Inst;
 
@@ -14,24 +15,26 @@ public class CarManager : InventoryUI
     [SerializeField] Transform[] slotPoint = new Transform[6];
 
     [Header("부품 슬롯")]
-    [SerializeField] PartBase[] slot = new PartBase[6];
+    [SerializeField] PartBase[] partSlot = new PartBase[6];
     List<ISpeed> enginePowers = new List<ISpeed>();
-    public IReadOnlyList<PartBase> Parts => slot;
+    public IReadOnlyList<PartBase> Parts => partSlot;
+
     public int GetEmptySlot()
     {
         int res = 0;
-        foreach (var item in slot)
+        foreach (var item in partSlot)
         {
             if (item == null) res++;
         }
         return res;
     }
+
     public bool HasPart(string id)
     {
-        foreach (var item in slot)
+        foreach (var item in partSlot)
         {
             if (item == null) continue;
-            if (item.name == id) return true;
+            if (item.id == id) return true;
         }
         return false;
     }
@@ -62,67 +65,48 @@ public class CarManager : InventoryUI
         }
     }
 
-    public void SetPart(int index, string partId)
+    public void SetPart(int index, PartBase part)
     {
         // 둘 다 null이면 (헛클릭) 스킵
-        if (slot[index] == null && partId == "") return;
+        if (partSlot[index] == null && part == null) return;
 
-        // 제거
-        if (slot[index] != null && partId == "")
-        {
-            // 창고 등록해제
-            if (slot[index] is StorageBase removeStorage)
-                UIManager.SetStorageSize(-removeStorage.size);
+        // 장착
+        partSlot[index] = Instantiate(part, slotPoint[index]
+            ).GetComponent<PartBase>();
 
-            // 인벤 쓰는 애면 등록 해제
-            if (slot[index] is IConnecter connectRemoved)
-                UIManager.UnRegister(connectRemoved.ConnectedInventory);
+        // 창고 등록
+        if (partSlot[index] is StorageBase addStorage)
+            UIManager.SetStorageSize(addStorage.size);
 
-            // 엔진출력 등록해제
-            if (slot[index] is ISpeed power)
-                enginePowers.Remove(power);
+        // 인벤 쓰는 애면 등록
+        if (partSlot[index] is IConnecter connecter)
+            UIManager.Register(connecter.ConnectedInventory);
 
-            Destroy(slot[index].gameObject);
-            slot[index] = null;
-            //Debug.Log("제거");
-        }
-        else
-        {
-            // 장착
-            slot[index] = Instantiate(ItemData.GetPrefab(partId), slotPoint[index]
-                ).GetComponent<PartBase>();
-            // 이름 설정
-            slot[index].name = partId;
+        // 엔진출력 등록
+        if (partSlot[index] is ISpeed power)
+            enginePowers.Add(power);
 
-            // 창고 등록
-            if (slot[index] is StorageBase addStorage)
-                UIManager.SetStorageSize(addStorage.size);
-
-            // 인벤 쓰는 애면 등록
-            if (slot[index] is IConnecter connecter)
-                UIManager.Register(connecter.ConnectedInventory);
-
-            // 엔진출력 등록
-            if (slot[index] is ISpeed power)
-                enginePowers.Add(power);
-        }
     }
 
-
-    public override void OnSlotClickPlus(int index)
+    public void SeparatePart(int index)
     {
-        string res = inventory[index].IsEmpty ? "" : inventory[index].id;
-        if (inventory[index].IsEmpty || inventory[index].item.HasTag("part"))
-        {
-            SetPart(index, res);
-            Refresh();
-        }
-        else
-        {
-            Debug.Log("파츠아닌거끼워짐 반환");
-            PlayerHand.Hand = inventory.PickUp(index, PlayerHand.Hand);
-            Refresh();
-        }
+        // 슬롯 비어있으면 스킵
+        if (partSlot[index] == null) return;
+
+        // 창고 등록해제
+        if (partSlot[index] is StorageBase removeStorage)
+            UIManager.SetStorageSize(-removeStorage.size);
+
+        // 인벤 쓰는 애면 등록 해제
+        if (partSlot[index] is IConnecter connectRemoved)
+            UIManager.UnRegister(connectRemoved.ConnectedInventory);
+
+        // 엔진출력 등록해제
+        if (partSlot[index] is ISpeed power)
+            enginePowers.Remove(power);
+
+        Destroy(partSlot[index].gameObject);
+        partSlot[index] = null;
     }
 
     void Awake()
@@ -132,23 +116,20 @@ public class CarManager : InventoryUI
 
     }
 
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-        for (int i = 0; i < slot.Length; i++)
+        for (int i = 0; i < partSlot.Length; i++)
         {
-            if (slot[i] != null)
+            if (partSlot[i] != null)
             {
-                inventory.SetSlot(i, ItemData.GetItem(slot[i].name), 1);
-                Refresh();
-                OnSlotClickPlus(i);
+                SetPart(i, partSlot[i]);
             }
         }
     }
 
     private void Update()
     {
-        foreach (var part in slot)
+        foreach (var part in partSlot)
         {
             if (part == null) continue;
             if (part.IsActivated) part.timer += Time.deltaTime;

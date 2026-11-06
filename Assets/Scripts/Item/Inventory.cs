@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : IEnumerable<ItemSlot>
+public class Inventory //: IEnumerable<ItemSlot>
 {
+    /*
     [SerializeField] private List<ItemSlot> slots = new List<ItemSlot>();
     public event Action OnChanged;
     void NotifyChanged() => OnChanged?.Invoke();
@@ -579,4 +580,5 @@ public class Inventory : IEnumerable<ItemSlot>
     {
         return GetEnumerator();
     }
+    */
 }

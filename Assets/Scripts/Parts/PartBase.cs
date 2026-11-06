@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public abstract class PartBase : MonoBehaviour
 {
+    public string partName;
     public string id;
     public float timer;
     public int grade = 5;

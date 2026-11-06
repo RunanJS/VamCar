@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum StatType { Atk, Speed, CritChance, CritAtk, Resistance, Storage }
+public enum StatType { Atk, Speed, CritChance, CritAtk, Resistance }
 
 public class UpgradeOption
 {
@@ -114,16 +114,16 @@ public class UpgradeManager : MonoBehaviour
         // 2. 새 부품 (빈 슬롯이 있을 때만)
         if (car.GetEmptySlot() >= 0)
         {
-            foreach (var item in ItemData.GetAll<PartSO>())
+            foreach (var item in PartManager.GetParts)
             {
-                if (    car.HasPart(item.id)) continue;
+                if (car.HasPart(item.id)) continue;
 
                 string id = item.id;
                 newPart.Add(new UpgradeOption
                 {
-                    title = item.itemName,
+                    title = item.partName,
                     desc = "새 부품",
-                    apply = () => UIManager.MainInventory.AddItem(id)
+                    apply = () => PartManager.Inst.StartSelect(item)
                 });
             }
         }
@@ -134,7 +134,6 @@ public class UpgradeManager : MonoBehaviour
         stat.Add(StatOption(car, StatType.CritChance, "치명타 확률", critChanceUp));
         stat.Add(StatOption(car, StatType.CritAtk, "치명타 피해", critAtkUp));
         stat.Add(StatOption(car, StatType.Resistance, "저항", resistanceUp));
-        stat.Add(StatOption(car, StatType.Storage, "저장공간", StorageUp));
     }
 
     UpgradeOption StatOption(CarManager car, StatType type, string name, float amount)
@@ -153,7 +152,6 @@ public class UpgradeManager : MonoBehaviour
                     case StatType.CritChance: s.critChance += amount; break;
                     case StatType.CritAtk: s.critAtk += amount; break;
                     case StatType.Resistance: s.resistance += amount; break;
-                    case StatType.Storage: UIManager.SetStorageSize((int)amount); break;
                 }
             }
         };

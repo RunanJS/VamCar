@@ -1,18 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnythingEngine : EngineBase, IConnecter
+public class AnythingEngine : EngineBase
 {
-    public Inventory storage = new Inventory(1);
-
-    public Inventory ConnectedInventory => storage;
-
     protected override bool GetRequired
     {
         get
         {
-            // 아무템 하나 없애고 발전량 전송
-            if (storage.RemoveAnyItem(1))
+            // 추후추가)적의 파편을 소모해서 발전
+            if (true)
             {
                 Debug.Log("발전");
                 return true;
@@ -32,7 +28,7 @@ public class AnythingEngine : EngineBase, IConnecter
                 generateTime /= 2;
                 break;
             case 3:
-                storage.SizeUp(2);
+                // 매연배출
                 break;
             case 4:
                 enginePower += 0.2f;
@@ -59,16 +55,16 @@ public class AnythingEngine : EngineBase, IConnecter
                     "한번의 작동에 걸리는 시간이 1/2로 줄어듭니다.");
                 break;
             case 2:
-                res = new UpgradeText("저장량 증가",
-                    "소재를 저장해둘 수 있는 슬롯이 2칸 늘어납니다.");
-                break;
-            case 3:
                 res = new UpgradeText("속도 상승",
                     "작동중 이동속도가 0.2배만큼 상승합니다.");
                 break;
-            case 4:
+            case 3:
                 res = new UpgradeText("효율 상승",
                     "생성하는 에너지의 양이 2배로 증가합니다.");
+                break;
+            case 4:
+                res = new UpgradeText("매연 발생",
+                    "작동할때마다 몸에 안좋은 매연을 내뿜습니다.");
                 break;
             default:
                 break;

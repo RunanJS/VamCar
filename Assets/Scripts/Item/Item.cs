@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item")]
 public class Item : ScriptableObject
 {
+    /*
     public string itemName;
     public string id;
     public Sprite sprite;
@@ -36,7 +37,6 @@ public class Item : ScriptableObject
         tags = new HashSet<string>(_item.tags);
         stats = new Dictionary<string, float>(_item.stats);
     }
-    */
 
     // 태그가 있는지
     public bool HasTag(string tag) => tags.Contains(tag);
@@ -50,4 +50,5 @@ public class Item : ScriptableObject
     // 스탯 값 읽기
     public float GetStat(string key, float defaultValue = 0f)
         => stats.TryGetValue(key, out float v) ? v : defaultValue;
+    */
 }

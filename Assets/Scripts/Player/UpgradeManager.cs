@@ -24,7 +24,6 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float critChanceUp = 0.05f;   // 확률 단위(0~1인지 0~100인지 맞추십시오)
     [SerializeField] float critAtkUp = 0.1f;
     [SerializeField] float resistanceUp = 0.05f;
-    [SerializeField] float StorageUp = 2f;
 
 
     [Header("종류별 가중치 (비율)")]
@@ -85,11 +84,13 @@ public class UpgradeManager : MonoBehaviour
     {
         if (select < 0 || select >= current.Count) return;
 
-        current[select].apply();
+        var option = current[select];
         current.Clear();
 
         upgradeUI.Close();
         Time.timeScale = 1f;
+
+        option.apply();
     }
 
     void BuildPools(CarManager car,

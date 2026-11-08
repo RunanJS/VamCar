@@ -45,11 +45,8 @@ public class PartManager : MonoBehaviour
         if (Inst == null)
             Inst = this;
         else
-            Destroy(Inst);
-    }
+            Destroy(gameObject);
 
-    public void OnEnable()
-    {
         for (int i = 0; i < slotBtn.Length; i++)
         {
             int index = i;

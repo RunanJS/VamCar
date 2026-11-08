@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [SerializeField] InventoryUI inventoryUI;
+    //[SerializeField] InventoryUI inventoryUI;
     [SerializeField] PopupUI invenPopUi;
 
     List<Inventory> inventorys = new List<Inventory>();

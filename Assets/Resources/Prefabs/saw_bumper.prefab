@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8e0893a29c96243a901e755ba29547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partName: "\uC804\uAE30\uD1B1\uC720\uB2DB"
+  id: saw_unit
   timer: 0
   grade: 0
   MaxGrade: 5

@@ -10,7 +10,7 @@ public class ItemObject : MonoBehaviour
     SpriteRenderer sprite;
 
     public bool getable => dropCool <= 0;
-    public ItemSlot GetItem => new ItemSlot(id, amount);
+    //public ItemSlot GetItem => new ItemSlot(id, amount);
 
     public string Id => id;
 
@@ -21,26 +21,9 @@ public class ItemObject : MonoBehaviour
         Refresh();
     }
 
-    public ItemSlot UseItem()
-    {
-        dropCool = 2f;
-        Destroy(gameObject);
-        //Debug.Log(amount + "°³ ¸Ô´Ù");
-        return new ItemSlot(id, amount);
-    }
-
-    public void SetItem(string id, int amount)
-    {
-        //Debug.Log("¼Â " + id + ", " + amount);
-        this.id = id;
-        this.amount = amount;
-        Refresh();
-    }
-
     public void Refresh()
     {
         //Debug.Log(ItemData.GetItem(id).id);
-        sprite.sprite = ItemData.Get<Item>(id).sprite;
         if(amount <= 0)
         {
             Destroy(gameObject);

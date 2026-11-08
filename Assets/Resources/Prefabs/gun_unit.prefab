@@ -155,6 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c27ad233408e4a419b80dc10494eb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partName: "\uC0AC\uACA9\uC720\uB2DB"
+  id: gun_unit
   timer: 0
   grade: 0
   MaxGrade: 5

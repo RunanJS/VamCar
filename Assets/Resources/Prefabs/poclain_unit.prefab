@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partName: 
+  id: 
   timer: 0
   grade: 0
   MaxGrade: 0
@@ -217,6 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbebb5c6dab4efc41bd00dbd4ae5117a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partName: "\uD3EC\uD06C\uB808\uC778\uC720\uB2DB"
+  id: poclain_unit
   timer: 0
   grade: 0
   MaxGrade: 5
@@ -331,6 +335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partName: 
+  id: 
   timer: 0
   grade: 0
   MaxGrade: 0
@@ -522,6 +528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partName: 
+  id: 
   timer: 0
   grade: 0
   MaxGrade: 0

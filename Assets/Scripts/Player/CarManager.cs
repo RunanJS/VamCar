@@ -74,14 +74,6 @@ public class CarManager : MonoBehaviour
         partSlot[index] = Instantiate(part, slotPoint[index]
             ).GetComponent<PartBase>();
 
-        // 창고 등록
-        if (partSlot[index] is StorageBase addStorage)
-            UIManager.SetStorageSize(addStorage.size);
-
-        // 인벤 쓰는 애면 등록
-        if (partSlot[index] is IConnecter connecter)
-            UIManager.Register(connecter.ConnectedInventory);
-
         // 엔진출력 등록
         if (partSlot[index] is ISpeed power)
             enginePowers.Add(power);
@@ -92,14 +84,6 @@ public class CarManager : MonoBehaviour
     {
         // 슬롯 비어있으면 스킵
         if (partSlot[index] == null) return;
-
-        // 창고 등록해제
-        if (partSlot[index] is StorageBase removeStorage)
-            UIManager.SetStorageSize(-removeStorage.size);
-
-        // 인벤 쓰는 애면 등록 해제
-        if (partSlot[index] is IConnecter connectRemoved)
-            UIManager.UnRegister(connectRemoved.ConnectedInventory);
 
         // 엔진출력 등록해제
         if (partSlot[index] is ISpeed power)
@@ -161,16 +145,5 @@ public class CarManager : MonoBehaviour
         AddExp(-RequiredExp);
         lv++;
         upgradeManager.UpgradeStart();
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-        // 아이템 먹기
-        if (other.TryGetComponent<ItemObject>(out ItemObject item)
-            && item.getable)
-        {
-            if (UIManager.MainInventory.CanGetItem(item.GetItem))
-                UIManager.MainInventory.AddItem(item.UseItem());
-        }
     }
 }

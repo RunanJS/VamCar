@@ -133,8 +133,8 @@ MonoBehaviour:
     critAtk: 0
     resistance: 0
   target: {fileID: 0}
-  dropItemId: wood
-  dropItemAmount: 1
+  dropExp: {fileID: 5666861919426703482, guid: 97942b348b953ac46a5ab1de40f3335d, type: 3}
+  dropAmount: 2
 --- !u!54 &-5489488163225003182
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -3,8 +3,8 @@ using UnityEngine;
 public abstract class Enemy : Unit
 {
     public GameObject target;
-    [SerializeField] string dropItemId;
-    [SerializeField] int dropItemAmount;
+    [SerializeField] ExpObject dropExp;
+    [SerializeField] int dropAmount;
 
     private void OnEnable()
     {
@@ -41,7 +41,13 @@ public abstract class Enemy : Unit
     public override void DeadStart()
     {
         // Debug.Log(dropItemId + " ¶³±¸±â " + dropItemAmount);
-        ItemData.DropItem(transform.position, dropItemId, dropItemAmount);
-        base.DeadStart();
+
+        Vector3 r;
+        for (int i = 0; i < dropAmount; i++)
+        {
+            r = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+            Instantiate(dropExp, transform.position + r, Quaternion.identity);
+            base.DeadStart();
+        }
     }
 }

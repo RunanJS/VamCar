@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
-{
+{/*
     [SerializeField] public Inventory inventory;
     [SerializeField] protected List<ItemSlotUI> slots = new List<ItemSlotUI>();
 
@@ -95,4 +95,5 @@ public class InventoryUI : MonoBehaviour
         size = inven.Length;
         SetSlotCount(size);
     }
+    */
 }

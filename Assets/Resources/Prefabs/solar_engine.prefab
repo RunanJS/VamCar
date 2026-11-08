@@ -114,8 +114,8 @@ Transform:
   m_GameObject: {fileID: 2236781765868145959}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.153, y: -0.253, z: 0.4}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.4}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4}
+  m_LocalScale: {x: 0.6, y: 0.9, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2668199939209860675}
@@ -185,6 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d50cee1f620304c80eb5490934bd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partName: 
+  id: 
   timer: 0
   grade: 0
   MaxGrade: 0
@@ -200,10 +202,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2668199939209860675}
-  - component: {fileID: 4597435032007320248}
+  - component: {fileID: -2526563537286461683}
   - component: {fileID: 6637781170813838380}
   m_Layer: 0
-  m_Name: fire_engine
+  m_Name: solar_engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +228,7 @@ Transform:
   - {fileID: 3325282806205110729}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4597435032007320248
+--- !u!114 &-2526563537286461683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,14 +237,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7023672050015559178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fad704bbbf4cad4392ff9c9cce30aa8, type: 3}
+  m_Script: {fileID: 11500000, guid: a7dccc6d85e681743ac86f26801a17c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partName: "\uD0DC\uC591\uAD11\uC5D4\uC9C4"
+  id: solar_engine
   timer: 0
   grade: 0
-  MaxGrade: 5
-  generateAmount: 4
-  generateTime: 4
+  MaxGrade: 0
+  generateAmount: 1
+  generateTime: 5
   enginePower: 1
 --- !u!65 &6637781170813838380
 BoxCollider:

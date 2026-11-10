@@ -6,8 +6,9 @@ public class InputManager : MonoBehaviour
 {
     public static Vector2 Move;
     public static bool Brake;
-    public static event Action OnInventoryToggle;
+    public static event Action OnMenuToggle;
     public static event Action OnEscOut;
+    public static event Action OnPressAnyKey;
 
     // PlayerInput 컴포넌트(Behavior: Send Messages)가 호출
     void OnMove(InputValue value)
@@ -18,13 +19,17 @@ public class InputManager : MonoBehaviour
     {
         Brake = value.isPressed;
     }
-    void OnInventory(InputValue value)
+    void OnMenu(InputValue value)
     {
-        if (value.isPressed) OnInventoryToggle?.Invoke();
+        if (value.isPressed) OnMenuToggle?.Invoke();
     }
     void OnEsc(InputValue value)
     {
         if (value.isPressed) OnEscOut?.Invoke();
+    }
+    void OnAnyKey(InputValue value)
+    {
+        if (value.isPressed) OnPressAnyKey.Invoke();
     }
 
 

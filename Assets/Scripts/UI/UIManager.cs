@@ -12,8 +12,6 @@ public class UIManager : MonoBehaviour
     //[SerializeField] InventoryUI inventoryUI;
     [SerializeField] PopupUI invenPopUi;
 
-    List<Inventory> inventorys = new List<Inventory>();
-
     [Header("exp¹Ù")]
     [SerializeField] Image expBar;
     [SerializeField] TextMeshProUGUI levelText;
@@ -30,6 +28,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        InputManager.OnMenuToggle += Toggle;
+
         var car = CarManager.Inst;
         car.OnExpChanged += RefreshExp;
         RefreshExp(car.exp, car.RequiredExp, car.lv);

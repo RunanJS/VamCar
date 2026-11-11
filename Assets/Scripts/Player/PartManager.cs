@@ -20,9 +20,16 @@ public class PartManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public void SetPart(int index,PartBase part)
+    {
+        selectedPart = part;
+        SelectSlot(index);
+    }
+
     public void SelectSlot(int index)
     {
         car.SetPart(index, selectedPart);
+        slotBtn[index].GetComponent<Image>().sprite = selectedPart.sprite;
         popup.Close();
         Time.timeScale = 1;
     }

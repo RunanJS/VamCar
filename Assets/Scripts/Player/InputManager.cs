@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
     public static bool Brake;
     public static event Action OnMenuToggle;
     public static event Action OnEscOut;
-    public static event Action OnPressAnyKey;
+    //public static event Action OnPressAnyKey;
 
     // PlayerInput 컴포넌트(Behavior: Send Messages)가 호출
     void OnMove(InputValue value)
@@ -27,11 +27,12 @@ public class InputManager : MonoBehaviour
     {
         if (value.isPressed) OnEscOut?.Invoke();
     }
+    /*
     void OnAnyKey(InputValue value)
     {
         if (value.isPressed) OnPressAnyKey.Invoke();
     }
-
+    */
 
     void OnDisable()
     {

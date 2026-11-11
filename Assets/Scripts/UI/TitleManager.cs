@@ -18,7 +18,7 @@ public class TitleManager : MonoBehaviour
 
     private void Start()
     {
-        InputManager.OnPressAnyKey += GameStart;
+        //InputManager.OnPressAnyKey += GameStart;
     }
 
     public void GameStart()

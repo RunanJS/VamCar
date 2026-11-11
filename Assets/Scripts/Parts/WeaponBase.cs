@@ -70,6 +70,8 @@ public class TargetCatcher
         return origin.TransformPoint(offset);
     }
 
+    public float GetRadius => radius;
+
     public void Resize(float value)
     {
         float grown = value * radius - radius;

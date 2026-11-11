@@ -16,11 +16,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image expBar;
     [SerializeField] TextMeshProUGUI levelText;
 
-    [Header("버튼")]
-    [SerializeField] Transform btnLayout;
-    [SerializeField] Button btnPrefab;
-    [SerializeField] List<Button> btns = new List<Button>();
-
     void Awake()
     {
         Instance = this;
@@ -43,7 +38,15 @@ public class UIManager : MonoBehaviour
 
     void RefreshExp(float exp, float need, int level)
     {
-        expBar.fillAmount = exp / need;
+        float ratio = need > 0f ? Mathf.Clamp01(exp / need) : 0f;
+
+        RectTransform fill = expBar.rectTransform;
+        float parentWidth = ((RectTransform)fill.parent).rect.width;
+
+        Vector2 offset = fill.offsetMax;
+        offset.x = -parentWidth * (1f - ratio);   // 비율이 줄수록 오른쪽 끝이 왼쪽으로
+        fill.offsetMax = offset;
+
         levelText.text = $"Lv.{level}";
     }
 

@@ -3,8 +3,12 @@ using UnityEngine;
 [System.Serializable]
 public abstract class PartBase : MonoBehaviour
 {
+    [Header("디스플레이 정보")]
     public string partName;
     public string id;
+    public Sprite sprite;
+
+    [Header("작동정보")]
     public float timer;
     public int grade = 5;
     public int MaxGrade;

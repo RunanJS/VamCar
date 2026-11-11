@@ -106,7 +106,7 @@ public class CarManager : MonoBehaviour
         {
             if (partSlot[i] != null)
             {
-                SetPart(i, partSlot[i]);
+                PartManager.Inst.SetPart(i, partSlot[i]);
             }
         }
     }

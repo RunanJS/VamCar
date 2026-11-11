@@ -117,8 +117,6 @@ public class UpgradeManager : MonoBehaviour
         {
             foreach (var item in PartManager.GetParts)
             {
-                if (car.HasPart(item.id)) continue;
-
                 string id = item.id;
                 newPart.Add(new UpgradeOption
                 {

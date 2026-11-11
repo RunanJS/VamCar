@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MixerUnit : WeaponBase
 {
-    [SerializeField] float atkSpeed;
-    [SerializeField] GameObject gasPrefab;
+    public float atkSpeed;
+    public float gasDuration;
+    public Gas gasPrefab;
 
     public override float GetTime => atkSpeed; 
 
@@ -13,9 +14,8 @@ public class MixerUnit : WeaponBase
     {
         for (int i = 0; i < catchers.Count; i++)
         {
-            GameObject gas = Instantiate(gasPrefab,
-                catchers[i].Position(transform), Quaternion.identity);
-            gas.transform.localScale = Vector3.one * catchers[i].GetRadius * 2;
+            Instantiate(gasPrefab, catchers[i].Position(transform), 
+                Quaternion.identity).SetGas(catchers[i], this);
         }
     }
 
@@ -24,19 +24,20 @@ public class MixerUnit : WeaponBase
         switch (++grade)
         {
             case 1:
-                Resize(1.3f);
+                atkSpeed += (1f / 1.3f);
                 break;
             case 2:
                 power = 130;
                 break;
             case 3:
-                maxCatchCount *= 2;
+                var origin = catchers[0];
+                catchers.Add(origin.CopyShifted(new Vector3(-1.5f, 0f, 0.8f)));   // 왼쪽
+                catchers.Add(origin.CopyShifted(new Vector3(1.5f, 0f, 0.8f)));   // 오른쪽
                 break;
             case 4:
                 power = 160;
                 break;
             case 5:
-                Resize(1.3f);
                 break;
             default:
                 break;
@@ -49,24 +50,24 @@ public class MixerUnit : WeaponBase
         switch (grade)
         {
             case 0:
-                res = new UpgradeText("범위 증가",
-                    "공격 범위가 1.3배로 증가합니다.");
+                res = new UpgradeText("공격 빈도 증가",
+                    "공격의 빈도가 1.5배 증가합니다.");
                 break;
             case 1:
                 res = new UpgradeText("위력 증가",
                     "공격의 위력이 130%로 증가합니다.");
                 break;
             case 2:
-                res = new UpgradeText("포착 대상 증가",
-                    "한번에 공격하는 대상 수가 2배 증가합니다.");
+                res = new UpgradeText("공격 개수 증가",
+                    "공격의 수가 3개로 증가합니다.");
                 break;
             case 3:
                 res = new UpgradeText("위력 증가",
                     "공격의 위력이 160%로 증가합니다.");
                 break;
             case 4:
-                res = new UpgradeText("범위 증가 / 인력",
-                    "공격 범위가 1.7배로 증가하고 톱날이 적을 끌어당기게 됩니다.");
+                res = new UpgradeText("추적",
+                    "공격이 가까운 적을 추적합니다.");
                 break;
             default:
                 break;

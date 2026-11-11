@@ -56,6 +56,24 @@ public class TargetCatcher
     [SerializeField] float radius = 1f;
     [SerializeField] LayerMask targetLayer;
 
+    public TargetCatcher() { }   // 인스펙터 직렬화용 (지우지 마십시오)
+
+    public TargetCatcher(Transform hitPoint, Vector3 offset, float radius, LayerMask targetLayer)
+    {
+        this.hitPoint = hitPoint;
+        this.offset = offset;
+        this.radius = radius;
+        this.targetLayer = targetLayer;
+    }
+    public TargetCatcher(TargetCatcher other)
+    {
+        hitPoint = other.hitPoint;
+        offset = other.offset;
+        radius = other.radius;
+        targetLayer = other.targetLayer;
+        gizmoColor = other.gizmoColor;
+    }
+
     public Vector3 Position(Transform self) => GetPos(self);   // 중심 위치 공개
 
     [Header("미리보기")]
@@ -64,6 +82,7 @@ public class TargetCatcher
     // 버퍼를 재사용해 GC 발생을 막습니다.
     readonly Collider[] buffer = new Collider[32];
 
+    public LayerMask GetLayer => targetLayer;
     Vector3 GetPos(Transform self)
     {
         Transform origin = hitPoint != null ? hitPoint : self;
@@ -104,6 +123,13 @@ public class TargetCatcher
             if (buffer[i].TryGetComponent(out Unit unit))
                 res.Add(unit);
         return res;
+    }
+
+    public TargetCatcher CopyShifted(Vector3 delta)
+    {
+        var copy = new TargetCatcher(this);   // 복사 생성자 사용
+        copy.offset += delta;
+        return copy;
     }
 
     public void DrawGizmos(Transform self)

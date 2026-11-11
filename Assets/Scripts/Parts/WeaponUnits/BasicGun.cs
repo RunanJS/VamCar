@@ -26,7 +26,7 @@ public class BasicGun : WeaponBase
         switch (++grade)
         {
             case 1:
-                rapidSpeed *= 1.3f;
+                rapidSpeed *= (1f / 1.3f);
                 break;
             case 2:
                 power = 130;
@@ -39,7 +39,7 @@ public class BasicGun : WeaponBase
                 break;
             case 5:
                 rapidCount += 1;
-                rapidSpeed *= 1.3f;
+                rapidSpeed *= (1f / 1.3f);
                 break;
             default:
                 break;

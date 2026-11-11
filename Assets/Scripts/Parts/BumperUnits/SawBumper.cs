@@ -7,8 +7,9 @@ public class SawBumper : WeaponBase
     [SerializeField] GameObject saw;
     private bool gravity = false;
     [SerializeField] float pullSpeed = 1.5f;
+    [SerializeField] float tick = 0.1f;
 
-    public override float GetTime => Time.deltaTime;
+    public override float GetTime => tick;
 
     public override void SkillEffect()
     {
@@ -17,7 +18,7 @@ public class SawBumper : WeaponBase
 
         foreach (var target in CatchAll(maxCatchCount))
         {
-            target.OnDamaged(Power * Time.deltaTime);
+            target.OnDamaged(Power * tick);
         }
 
         if (gravity) Pull();

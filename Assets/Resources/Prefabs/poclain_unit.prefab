@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 122972857279405671}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.2}
+  m_LocalPosition: {x: 0, y: 0.2, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -88,10 +88,10 @@ MonoBehaviour:
   catchers:
   - hitPoint: {fileID: 5156585837681422137}
     offset: {x: 0, y: 0, z: 0}
-    radius: 1
+    radius: 1.2
     targetLayer:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 64
     gizmoColor: {r: 1, g: 0, b: 0, a: 0.49411765}
   arm: {fileID: 0}
   atkCool: 5
@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 1429539363476593620}
   - component: {fileID: 2808387891295553043}
   - component: {fileID: 8839799169712949624}
+  - component: {fileID: 8892774887616800131}
   m_Layer: 0
   m_Name: ArmMesh
   m_TagString: Untagged
@@ -181,3 +182,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8892774887616800131
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307889423991880430}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.4823089, y: 0.4623713, z: 0.71999997}
+  m_Center: {x: 0.00037753582, y: -0.00037754327, z: 0.35999998}

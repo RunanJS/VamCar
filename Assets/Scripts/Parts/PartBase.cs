@@ -10,8 +10,8 @@ public abstract class PartBase : MonoBehaviour
 
     [Header("작동정보")]
     public float timer;
-    public int grade = 5;
-    public int MaxGrade;
+    public int grade = 0;
+    public int MaxGrade = 5;
 
     public bool Upgradeable => grade < MaxGrade;
     public abstract float GetTime { get; }

@@ -9,6 +9,7 @@ public class Poclain : WeaponBase
 
     public override void SkillEffect()
     {
+        Debug.Log("°«Ã­");
         foreach (var enemy in CatchAll(maxCatchCount))
         {
             enemy.OnDamaged(Power);

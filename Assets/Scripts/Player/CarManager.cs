@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CarManager : MonoBehaviour
@@ -123,6 +122,14 @@ public class CarManager : MonoBehaviour
                 part.SkillEffect();
             }
         }
+    }
+
+    public static void Attack(float damage, Unit target)
+    {
+        var stat = Inst.Stat;
+        bool isCrit = UnityEngine.Random.Range(0f, 100f) < stat.critChance;
+        float res = isCrit ? damage * (stat.critAtk / 100) : damage;
+        target.OnDamaged(res, isCrit);
     }
 
     private void FixedUpdate()

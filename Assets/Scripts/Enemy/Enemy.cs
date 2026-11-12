@@ -33,7 +33,7 @@ public abstract class Enemy : Unit
         rb.MovePosition(transform.position + stat.speed * transform.forward * Time.deltaTime);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (MoveRequirement) Move();
     }

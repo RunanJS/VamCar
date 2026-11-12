@@ -8,6 +8,7 @@ public enum StatType { Atk, Speed, CritChance, CritAtk, Resistance }
 
 public class UpgradeOption
 {
+    public Sprite sprite;
     public string title;
     public string desc;
     public Action apply;
@@ -16,7 +17,7 @@ public class UpgradeOption
 public class UpgradeManager : MonoBehaviour
 {
     [SerializeField] PopupUI upgradeUI;
-    [SerializeField] Button[] btns = new Button[3];
+    [SerializeField] UpgradeBtn[] btns = new UpgradeBtn[3];
 
     [Header("스탯 1회 증가량")]
     [SerializeField] float atkUp = 10f;
@@ -30,6 +31,12 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float partUpWeight = 50f;
     [SerializeField] float newPartWeight = 20f;
     [SerializeField] float statWeight = 30f;
+
+    [Header("이미지")]
+    [SerializeField] Sprite[] sprites;
+
+    string[] slotNames = 
+        { "전방", "우전방", "우후방", "후방", "좌후방", "좌전방", "상단" };
 
     public List<UpgradeOption> current = new List<UpgradeOption>();
 
@@ -65,13 +72,13 @@ public class UpgradeManager : MonoBehaviour
 
             current.Add(pool[i]);
 
-            var texts = btns[i].GetComponentsInChildren<TMP_Text>();
-            texts[0].text = pool[i].title;
-            if (texts.Length > 1) texts[1].text = pool[i].desc;
+            btns[i].title.text = pool[i].title;
+            btns[i].lore.text = pool[i].desc;
+            btns[i].sprite.sprite = pool[i].sprite;
 
             int index = i;
-            btns[i].onClick.RemoveAllListeners();
-            btns[i].onClick.AddListener(() => UpgradeComplete(index));
+            btns[i].btn.onClick.RemoveAllListeners();
+            btns[i].btn.onClick.AddListener(() => UpgradeComplete(index));
         }
 
         if (current.Count == 0) return;
@@ -97,6 +104,7 @@ public class UpgradeManager : MonoBehaviour
     List<UpgradeOption> partUp, List<UpgradeOption> newPart, List<UpgradeOption> stat)
     {
         // 1. 가진 부품 강화
+        /*
         foreach (var part in car.Parts)
         {
             if (part == null || 
@@ -106,8 +114,27 @@ public class UpgradeManager : MonoBehaviour
             UpgradeText text = p.GetExplain();
             partUp.Add(new UpgradeOption
             {
+                sprite = part.sprite,
                 title = text.title,
                 desc = text.line,
+                apply = () => p.Upgrade()
+            });
+        }*/
+
+        for (int i = 0; i < car.Parts.Count; i++)
+        {
+            var part = car.Parts[i];
+            if (part == null || part.grade >= part.MaxGrade) continue;
+
+            var p = part;
+            UpgradeText text = p.GetExplain();
+            string dir = i < slotNames.Length ? slotNames[i] : "";
+
+            partUp.Add(new UpgradeOption
+            {
+                title = $"[{dir}] {text.title}",
+                desc = text.line,
+                sprite = part.sprite,
                 apply = () => p.Upgrade()
             });
         }
@@ -120,6 +147,7 @@ public class UpgradeManager : MonoBehaviour
                 string id = item.id;
                 newPart.Add(new UpgradeOption
                 {
+                    sprite = item.sprite,
                     title = item.partName,
                     desc = "새 부품",
                     apply = () => PartManager.Inst.StartSelect(item)
@@ -139,6 +167,7 @@ public class UpgradeManager : MonoBehaviour
     {
         return new UpgradeOption
         {
+            sprite = sprites[(int)type],
             title = $"{name} 증가",
             desc = $"+{amount}",
             apply = () =>

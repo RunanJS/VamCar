@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.TryGetComponent<Unit>(out var unit))
         {
-            unit.OnDamaged(power);
+            CarManager.Attack(power, unit);
             Destroy(gameObject);
         }
     }

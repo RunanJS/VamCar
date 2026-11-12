@@ -73,7 +73,7 @@ MonoBehaviour:
   currentHp: 0
   maxHp: 5
   stat:
-    atk: 0
+    atk: 1
     speed: 2
     critChance: 0
     critAtk: 0
@@ -81,6 +81,14 @@ MonoBehaviour:
   target: {fileID: 0}
   dropExp: {fileID: 3111089748341470849, guid: 0392cfbe29769e747bfa929ac9c9f7f9, type: 3}
   dropAmount: 2
+  catcher:
+    hitPoint: {fileID: 0}
+    offset: {x: 0, y: 0, z: 0}
+    radius: 1
+    targetLayer:
+      serializedVersion: 2
+      m_Bits: 128
+    gizmoColor: {r: 1, g: 0, b: 0, a: 0.4}
 --- !u!54 &3432851636012758021
 Rigidbody:
   m_ObjectHideFlags: 0

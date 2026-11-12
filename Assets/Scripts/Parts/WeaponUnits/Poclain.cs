@@ -12,7 +12,7 @@ public class Poclain : WeaponBase
         Debug.Log("°«Ã­");
         foreach (var enemy in CatchAll(maxCatchCount))
         {
-            enemy.OnDamaged(Power);
+            CarManager.Attack(Power, enemy);
         }
     }
 

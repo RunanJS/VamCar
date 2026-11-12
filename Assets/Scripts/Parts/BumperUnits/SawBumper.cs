@@ -18,7 +18,7 @@ public class SawBumper : WeaponBase
 
         foreach (var target in CatchAll(maxCatchCount))
         {
-            target.OnDamaged(Power * tick);
+            CarManager.Attack(Power * tick, target);
         }
 
         if (gravity) Pull();

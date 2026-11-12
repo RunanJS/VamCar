@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -95,6 +94,8 @@ public class TargetCatcher
     {
         float grown = value * radius - radius;
         radius *= value;
+
+        if (hitPoint == null) return;
         hitPoint.localScale *= value;
 
         // 원점 기준, 현재 위치 방향으로 증가분만큼 이동

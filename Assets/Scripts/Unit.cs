@@ -15,9 +15,10 @@ public class Unit : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public void OnDamaged(float damage)
+    public void OnDamaged(float damage, bool isCrit = false)
     {
         if (IsDead) return;
+        DamagePopupManager.Show(transform.position + Vector3.up * 1.5f, damage*10, isCrit);
         currentHp -= damage;
         if(currentHp <= 0)
         {

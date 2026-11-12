@@ -34,7 +34,7 @@ public class Gas : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 if (buffer[i].TryGetComponent(out Unit unit))
-                    unit.OnDamaged(damage / duration);
+                    CarManager.Attack(damage / (duration * 2), unit);
             }
         }
 

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partName: "\uBC29\uAD6C\uCC28\uC720\uB2DB"
   id: gas_unit
-  sprite: {fileID: 21300000, guid: 9e26bc2a9c15a95488330294712cae37, type: 3}
+  sprite: {fileID: 21300000, guid: 8d01415e2c43b2e4785909fefde9dfb9, type: 3}
   timer: 0
   grade: 0
   MaxGrade: 5
@@ -61,7 +61,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
     gizmoColor: {r: 1, g: 0, b: 0, a: 0.49411765}
-  atkSpeed: 3
+  atkSpeed: 0.3
   gasDuration: 3
   gasPrefab: {fileID: 3152329606937893568, guid: 509b93d390ba8bc41b322932804c6fa9, type: 3}
 --- !u!1 &1948252482128203611
